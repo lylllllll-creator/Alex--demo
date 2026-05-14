@@ -1,0 +1,2002 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Alex大叔星运解读</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{
+  background:#222;
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Helvetica Neue',sans-serif;
+}
+
+/* ── PHONE SHELL ── */
+.shell{
+  width:393px;height:852px;
+  background:#F0F0F0;
+  border-radius:54px;
+  overflow:hidden;
+  position:relative;
+  box-shadow:0 0 0 1.5px #3a3a3a,0 30px 80px rgba(0,0,0,.7);
+}
+
+/* ── STATUS BAR ── */
+.sbar{
+  height:62px;
+  background:#F0F0F0;
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  padding:0 22px 10px;
+}
+.sbar-time{font-size:16px;font-weight:600;color:#000;letter-spacing:-.2px;line-height:1}
+.sbar-right{display:flex;align-items:center;gap:5px}
+
+/* ── NAV BAR ── */
+.nav{
+  height:52px;
+  background:#F0F0F0;
+  display:flex;
+  align-items:center;
+  padding:0 16px;
+  gap:10px;
+}
+.nav-back{display:flex;align-items:center;cursor:pointer;padding:4px}
+.nav-avt{
+  width:36px;height:36px;border-radius:50%;
+  background:#EDF4EF;border:1.5px solid #BFD6CA;
+  display:flex;align-items:center;justify-content:center;
+  font-size:18px;flex-shrink:0;
+}
+
+/* ── CHAT ── */
+.chat{
+  height:calc(852px - 54px - 52px - 66px);
+  overflow-y:auto;
+  padding:16px 14px 8px;
+  display:flex;flex-direction:column;gap:12px;
+  background:#F0F0F0;
+}
+.chat::-webkit-scrollbar{width:0}
+
+/* message rows */
+.mrow{display:flex;align-items:flex-end;gap:8px}
+.mrow.me{flex-direction:row-reverse}
+.mavt{
+  width:32px;height:32px;border-radius:50%;
+  background:#EDF4EF;border:1.5px solid #BFD6CA;
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;flex-shrink:0;
+}
+.mcol{display:flex;flex-direction:column;gap:4px;max-width:276px}
+.mrow.me .mcol{align-items:flex-end}
+
+/* bubbles */
+.bai{
+  background:#fff;color:#111;
+  padding:10px 13px;
+  border-radius:4px 16px 16px 16px;
+  font-size:14px;line-height:1.65;
+  box-shadow:0 1px 3px rgba(0,0,0,.06);
+}
+.bme{
+  background:#E5E5E5;color:#111;
+  padding:10px 13px;
+  border-radius:16px 4px 16px 16px;
+  font-size:14px;line-height:1.65;
+}
+
+/* typing */
+.typing{
+  background:#fff;padding:10px 14px;
+  border-radius:4px 16px 16px 16px;
+  display:flex;gap:5px;align-items:center;
+  box-shadow:0 1px 3px rgba(0,0,0,.06);
+}
+.tdot{
+  width:6px;height:6px;border-radius:50%;background:#ccc;
+  animation:td 1.3s infinite;
+}
+.tdot:nth-child(2){animation-delay:.15s}
+.tdot:nth-child(3){animation-delay:.3s}
+@keyframes td{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-5px);background:#888}}
+
+/* ── PERSONA CARD ── */
+.persona{
+  width:276px;max-width:276px;
+  background:#DCEAE2;
+  border:2px solid #fff;
+  border-radius:16px;
+  padding:16px 14px 14px;
+  display:flex;flex-direction:column;align-items:center;gap:12px;
+}
+.persona-head{display:flex;flex-direction:column;align-items:center;gap:8px;width:100%;margin-bottom:0}
+.persona-bigavt{
+  width:72px;height:72px;border-radius:50%;
+  background:#fff;border:2px solid #BFD6CA;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  overflow:hidden;
+}
+.persona-bigavt img{
+  width:100%;height:100%;object-fit:cover;display:block;border-radius:50%;
+}
+.persona-name{font-size:17px;font-weight:600;color:#111}
+.persona-badge{
+  display:none;
+}
+.persona-desc{font-size:13px;color:#6B8C7C;line-height:1.5;text-align:center;margin-bottom:0}
+.persona-subcard{
+  background:#F2F7F4;border-radius:12px;padding:12px;width:100%;
+  margin:8px 0;
+}
+.persona-subcard-title{font-size:14px;font-weight:600;color:#111;margin-bottom:4px}
+.persona-subcard-desc{font-size:11px;color:#999;line-height:1.5}
+.persona-btn{
+  width:100%;padding:9px 14px;
+  background:#BFD6CA;color:#111;
+  border:none;border-radius:50px;
+  font-size:14px;font-weight:700;cursor:pointer;
+  transition:opacity .15s;
+}
+.persona-btn:active{opacity:.8}
+.persona-btn:disabled{opacity:.45;cursor:default}
+.persona-subcard{display:flex;align-items:center;gap:10px}
+.persona-subcard-deco{
+  width:52px;
+  height:62px;
+  flex-shrink:0;
+  transform:rotate(8deg);
+  border-radius:8px;
+  background:#fff;
+  box-shadow:0 2px 8px rgba(0,0,0,0.10);
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:8px 7px;
+}
+.deco-inner{
+  width:100%;
+  display:flex;
+  flex-direction:column;
+  gap:5px;
+}
+.deco-line{
+  height:4px;
+  background:#E8E8E8;
+  border-radius:2px;
+  width:100%;
+}
+.deco-line--title{
+  height:5px;
+  background:#C8C8C8;
+  width:80%;
+}
+.deco-line--short{
+  width:65%;
+}
+
+/* ── SELECTION CARD ── */
+.selcard{
+  width:276px;max-width:276px;
+  background:#fff;border-radius:16px;
+  padding:14px 14px 12px;
+  box-shadow:0 1px 5px rgba(0,0,0,.07);
+}
+.sellabel{font-size:12px;color:#aaa;margin-bottom:10px}
+
+/* zodiac chips */
+.zchips{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.zchip{
+  padding:9px 0;
+  background:#F5F5F5;border:1px solid #E5E5E5;
+  border-radius:20px;font-size:13px;color:#333;
+  cursor:pointer;transition:all .15s;text-align:center;
+}
+.zchip:active,.zchip.picked{background:#1A1A1A;color:#fff;border-color:#1A1A1A}
+
+/* time chips */
+.tchips{display:flex;gap:8px}
+.tchip{
+  flex:1;padding:12px 0;text-align:center;
+  background:#F5F5F5;border:1px solid #E5E5E5;
+  border-radius:12px;font-size:14px;font-weight:500;color:#333;
+  cursor:pointer;transition:all .15s;
+}
+.tchip:active{background:#1A1A1A;color:#fff;border-color:#1A1A1A}
+
+/* hour chips (for rising sign time selection) */
+.hchips{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.hchip{
+  padding:8px 0;
+  background:#F5F5F5;border:1px solid #E5E5E5;
+  border-radius:12px;font-size:12px;color:#333;
+  cursor:pointer;transition:all .15s;text-align:center;
+}
+.hchip:active,.hchip.picked{background:#1A1A1A;color:#fff;border-color:#1A1A1A}
+
+/* ── FORTUNE CARD ── */
+.fcard{
+  width:276px;max-width:276px;
+  background:#fff;border-radius:16px;
+  overflow:hidden;box-shadow:0 1px 6px rgba(0,0,0,.08);
+}
+
+/* 分栏容器 */
+.fcard-merged-container{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  grid-template-rows:auto auto auto auto auto;
+  width:345px;
+  background:#fff;border-radius:16px;
+  overflow:hidden;box-shadow:0 1px 6px rgba(0,0,0,.08);
+  border-top:3px solid #BFD6CA;
+  margin:0 auto;
+}
+.fcard-merged-col{
+  display:none;
+}
+.fcard-merged-col:last-child{border-right:none}
+
+.fhead{
+  background:#DCEAE2;padding:14px 16px 12px;
+  border-bottom:1px solid #BFD6CA;
+}
+.fhead-merged{
+  background:#DCEAE2;padding:16px 16px 14px;
+  border-bottom:1px solid #BFD6CA;
+  font-size:13px;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-start;
+  gap:8px;
+  min-height:160px;
+}
+.fhead-merged:nth-child(odd){
+  border-right:1px solid #BFD6CA;
+}
+.fhead-merged-row{
+  display:flex;
+  flex-direction:row;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:8px;
+  width:100%;
+}
+.fhead-merged-left{
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+  flex:1;
+  justify-content:flex-start;
+}
+.fhead-merged-stars{
+  display:inline-flex;
+  flex-direction:row;
+  align-items:flex-start;
+  line-height:1.1;
+  font-size:8px;
+  gap:1px;
+  letter-spacing:.5px;
+  white-space:nowrap;
+  flex-shrink:0;
+  margin-top:0;
+}
+.fhead-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.fsign{font-size:16px;font-weight:700;color:#111}
+.fsign-merged{font-size:15px;font-weight:700;color:#111;line-height:1.2;margin:0;padding:0;display:flex;align-items:center}
+.fperiod{font-size:11px;color:#3D6B5C;margin-top:3px}
+.fperiod-merged{font-size:11px;color:#3D6B5C;margin:0;line-height:1.2;padding:0;display:flex;align-items:center}
+.fscore{font-size:16px;color:#3D6B5C;letter-spacing:2px}
+.fscore-merged{font-size:14px;color:#3D6B5C;letter-spacing:1px;margin-top:2px;margin-bottom:2px}
+.fsep{height:.5px;background:#BFD6CA;margin:10px 0}
+.fsep-merged{height:.5px;background:#BFD6CA;margin:8px 0 6px 0}
+.fsummary{font-size:13px;color:#3D6B5C;line-height:1.65}
+.fsummary-merged{font-size:12px;color:#3D6B5C;line-height:1.5;margin:0;min-height:80px;display:flex;align-items:flex-start}
+
+.frow{
+  display:flex;flex-direction:column;align-items:flex-start;
+  padding:11px 16px;
+  border-bottom:.5px solid #F3F3F3;
+  cursor:pointer;transition:background .12s;
+  gap:6px;
+  width:100%;
+}
+.frow-left{
+  display:flex;
+  flex-direction:row;
+  align-items:center;
+  gap:6px;
+  flex-shrink:0;
+  width:100%;
+  justify-content:space-between;
+}
+.frow-merged{
+  display:flex;flex-direction:column;align-items:flex-start;
+  padding:12px 16px;
+  border-bottom:.5px solid #F3F3F3;
+  cursor:pointer;transition:background .12s;
+  font-size:12px;
+  gap:6px;
+}
+.frow-merged:nth-child(odd){
+  border-right:1px solid #BFD6CA;
+}
+.frow-merged:nth-last-child(2),
+.frow-merged:nth-last-child(4){
+  border-bottom:.5px solid #F3F3F3;
+}
+.frow:last-child{border-bottom:none}
+.frow-merged:last-child{border-bottom:none}
+.frow:active{background:#FAFAFA}
+.frow-merged:active{background:#FAFAFA}
+.ficon{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:15px;margin-right:0;flex-shrink:0}
+.ficon-merged{width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:13px;margin-right:8px;flex-shrink:0}
+.flabel{font-size:14px;font-weight:500;color:#111;width:28px}
+.flabel-merged{font-size:13px;font-weight:500;color:#111;width:28px}
+.fstars{font-size:10px;color:#3D6B5C;letter-spacing:.5px;margin:0;display:flex;flex-direction:row;align-items:center;line-height:1.2;gap:1px;white-space:nowrap;margin-bottom:4px;width:100%;margin-top:2px}
+.fstars-merged{font-size:10px;color:#3D6B5C;letter-spacing:.5px;margin:0;display:flex;flex-direction:row;align-items:center;line-height:1.2;gap:1px;white-space:nowrap;margin-bottom:0;margin-top:2px}
+.fdesc{font-size:11px;color:#aaa;width:100%;line-height:1.5;white-space:normal;overflow:visible;word-break:break-all;margin-top:2px}
+.fdesc-merged{font-size:11px;color:#aaa;width:100%;line-height:1.5;white-space:normal;overflow:visible;word-break:break-all;text-align:justify;text-justify:inter-character;margin-top:2px}
+.farrow{color:#D0D0D0;font-size:16px;margin-left:auto;align-self:center}
+.farrow-merged{color:#D0D0D0;font-size:13px;align-self:center}
+
+/* ── QUICK REPLIES ── */
+.qrwrap{display:flex;flex-wrap:wrap;gap:7px;padding:2px 0}
+.qrbtn{
+  padding:8px 13px;
+  background:#fff;border:1px solid #E5E5E5;
+  border-radius:20px;font-size:13px;color:#333;
+  cursor:pointer;transition:background .12s;
+  white-space:nowrap;
+  box-shadow:0 1px 3px rgba(0,0,0,.04);
+}
+.qrbtn:active{background:#F0F0F0}
+
+/* ── DETAIL CARDS ── */
+.dbubble{
+  width:276px;max-width:276px;
+  background:#fff;padding:14px 15px;
+  border-radius:4px 16px 16px 16px;
+  font-size:14px;line-height:1.75;color:#111;
+  white-space:pre-line;
+  box-shadow:0 1px 4px rgba(0,0,0,.06);
+}
+
+/* 运势进度条（动态动画） */
+.score-bar{margin:6px 0 10px}
+.score-bar-meta{display:flex;justify-content:space-between;align-items:baseline;font-size:12px;color:#3D6B5C;margin-bottom:6px;line-height:1.3}
+.score-bar-num{font-weight:700;color:#111;font-size:13px;letter-spacing:.5px}
+.score-bar-track{height:10px;background:#F0F0F0;border-radius:5px;overflow:hidden;position:relative}
+.score-bar-fill{height:100%;border-radius:5px;background:linear-gradient(90deg,#9FE3CB 0%,#6FCFB0 100%);width:0;animation:scoreGrow 1.8s cubic-bezier(.22,.61,.36,1) forwards;box-shadow:0 0 6px rgba(111,207,176,.35)}
+@keyframes scoreGrow{from{width:0}to{width:var(--score-w,0%)}}
+
+/* 单独卡片中的进度条样式（更突出） */
+.score-bar--card{margin:8px 0 4px}
+.score-bar--card .score-bar-meta{font-size:13px;margin-bottom:10px}
+.score-bar--card .score-bar-num{font-size:16px;color:#111}
+.score-bar--card .score-bar-track{height:14px;border-radius:7px;background:#EFEFEF;box-shadow:inset 0 1px 2px rgba(0,0,0,.05)}
+.score-bar--card .score-bar-fill{border-radius:7px;animation-duration:1.8s}
+
+.dbubble-merged-container{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:0;
+  width:345px;max-width:345px;
+}
+.dbubble-merged{
+  display:flex;
+  flex-direction:column;
+  background:#fff;
+  border-radius:0;
+  border-right:1px solid #BFD6CA;
+  min-width:0;
+}
+.dbubble-merged:last-child{border-right:none}
+.dbubble-merged:first-child{border-radius:4px 0 0 16px}
+.dbubble-merged:last-child{border-radius:0 16px 16px 0}
+
+.dbubble-merged-title{
+  background:#DCEAE2;
+  border:1px solid #BFD6CA;
+  border-radius:8px;
+  padding:6px 10px;
+  font-size:12px;
+  font-weight:700;
+  color:#3D6B5C;
+  margin:12px 10px 8px 10px;
+  text-align:center;
+  line-height:1.4;
+}
+
+.dbubble-merged-body{
+  font-size:12px;
+  line-height:1.6;
+  color:#111;
+  white-space:pre-line;
+  padding:0 10px 12px 10px;
+  flex:1;
+}
+
+.avoidcard{
+  width:276px;max-width:276px;
+  background:#fff;border:1px solid #EBEBEB;
+  padding:14px 15px;border-radius:16px;
+  font-size:14px;line-height:1.75;color:#111;
+  white-space:pre-line;
+}
+.avoidcard strong{display:block;font-size:14px;font-weight:700;color:#111;margin-bottom:8px}
+
+.comfortcard{
+  width:276px;max-width:276px;
+  background:#fff;border:1px solid #EBEBEB;
+  padding:14px 15px;border-radius:16px;
+  font-size:13px;line-height:1.8;color:#111;
+  white-space:pre-line;
+  box-shadow:0 1px 4px rgba(0,0,0,.06);
+}
+.comfortcard strong{display:block;font-size:14px;font-weight:700;color:#111;margin-bottom:8px}
+
+/* ── INPUT AREA ── */
+.inp-area{
+  position:absolute;bottom:0;left:0;right:0;
+  background:#fff;border-top:1px solid #EBEBEB;
+  padding:10px 14px 22px;
+  display:flex;align-items:center;gap:8px;
+}
+.inp-add{
+  width:34px;height:34px;border-radius:50%;
+  background:#F0F0F0;border:none;
+  display:flex;align-items:center;justify-content:center;
+  font-size:20px;color:#888;cursor:pointer;flex-shrink:0;
+}
+.inp-box{
+  flex:1;padding:9px 14px;
+  background:#F0F0F0;border:none;border-radius:20px;
+  font-size:14px;color:#111;outline:none;font-family:inherit;
+}
+.inp-box::placeholder{color:#C0C0C0}
+.inp-send{
+  width:34px;height:34px;border-radius:50%;
+  background:#1A1A1A;border:none;
+  display:flex;align-items:center;justify-content:center;
+  color:#fff;cursor:pointer;flex-shrink:0;transition:opacity .15s;
+}
+.inp-send:active{opacity:.75}
+
+/* ── INFO CARD (新增：占星基础信息卡) ── */
+.infocard{
+  width:276px;max-width:276px;
+  background:#DCEAE2;
+  border:2px solid #fff;
+  border-radius:16px;
+  padding:16px 14px 14px;
+  display:flex;flex-direction:column;align-items:center;gap:12px;
+}
+.infocard-intro{
+  font-size:13px;color:#6B8C7C;text-align:center;line-height:1.5;
+  width:100%;padding:0 4px 8px;
+  border-bottom:1px dashed #BFD6CA;margin-bottom:4px;
+}
+.infocard-title{
+  font-size:18px;font-weight:700;color:#111;text-align:center;margin-bottom:4px;
+}
+.infocard-rows{
+  background:#F2F7F4;border-radius:12px;padding:12px;width:100%;
+  display:flex;flex-direction:column;gap:0;
+}
+.info-row{
+  display:flex;align-items:center;justify-content:space-between;gap:8px;
+  padding:12px 0;border-bottom:1px solid #BFD6CA;
+  width:100%;
+}
+.info-row:last-child{border-bottom:none}
+.info-label{
+  font-size:13px;color:#999;font-weight:500;width:75px;flex-shrink:0;
+}
+.info-value{
+  flex:1;font-size:14px;color:#111;font-weight:600;text-align:center;
+  cursor:pointer;transition:color .15s;
+}
+.info-value:active{color:#3D6B5C}
+.info-empty{
+  color:#C0C0C0;font-weight:400;
+}
+.info-edit{
+  font-size:16px;color:#D0D0D0;flex-shrink:0;cursor:pointer;
+  transition:color .15s;
+}
+.info-edit:active{color:#3D6B5C}
+
+/* ── DATE PICKER (日期选择器) ── */
+.date-picker{
+  width:276px;max-width:276px;
+  background:#fff;border-radius:16px;
+  padding:14px 14px 12px;
+  box-shadow:0 1px 5px rgba(0,0,0,.07);
+}
+.date-picker-title{
+  font-size:14px;font-weight:600;color:#111;margin-bottom:12px;text-align:center;
+}
+.date-picker-row{
+  display:flex;gap:8px;margin-bottom:12px;
+}
+.date-picker-row:last-child{margin-bottom:0}
+.date-picker-label{
+  font-size:12px;color:#999;width:40px;flex-shrink:0;line-height:40px;
+}
+.date-picker-chips{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:6px;flex:1;
+}
+.date-chip{
+  padding:8px 0;
+  background:#F5F5F5;border:1px solid #E5E5E5;
+  border-radius:12px;font-size:12px;color:#333;
+  cursor:pointer;transition:all .15s;text-align:center;
+}
+.date-chip:active,.date-chip.picked{background:#1A1A1A;color:#fff;border-color:#1A1A1A}
+
+/* ── TIME PICKER (时间选择器) ── */
+.time-picker{
+  width:276px;max-width:276px;
+  background:#fff;border-radius:16px;
+  padding:14px 14px 12px;
+  box-shadow:0 1px 5px rgba(0,0,0,.07);
+}
+.time-picker-title{
+  font-size:14px;font-weight:600;color:#111;margin-bottom:12px;text-align:center;
+}
+.time-picker-section{
+  margin-bottom:12px;
+}
+.time-picker-section:last-child{margin-bottom:0}
+.time-picker-label{
+  font-size:12px;color:#999;margin-bottom:8px;display:block;
+}
+.time-picker-chips{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:6px;
+}
+.time-chip{
+  padding:8px 0;
+  background:#F5F5F5;border:1px solid #E5E5E5;
+  border-radius:12px;font-size:12px;color:#333;
+  cursor:pointer;transition:all .15s;text-align:center;
+}
+.time-chip:active,.time-chip.picked{background:#1A1A1A;color:#fff;border-color:#1A1A1A}
+
+/* ── BIRTHDAY PICKER (iOS 风格年月日滚轮) ── */
+.bp-mask{
+  position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:9999;
+  display:flex;align-items:flex-end;justify-content:center;
+}
+.bp-panel{
+  width:100%;max-width:393px;background:#fff;
+  border-radius:16px 16px 0 0;
+  box-shadow:0 -2px 10px rgba(0,0,0,0.1);
+}
+.bp-header{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:14px 20px;border-bottom:1px solid #f0f0f0;
+}
+.bp-cancel{color:#999;cursor:pointer;font-size:14px;}
+.bp-title{color:#111;font-weight:600;font-size:14px;}
+.bp-confirm{color:#3D6B5C;cursor:pointer;font-weight:600;font-size:14px;}
+.bp-body{
+  display:flex;height:220px;position:relative;overflow:hidden;
+}
+.bp-col{
+  flex:1;overflow-y:scroll;scroll-snap-type:y mandatory;
+  -webkit-overflow-scrolling:touch;scrollbar-width:none;
+}
+.bp-col::-webkit-scrollbar{display:none}
+.bp-col ul{
+  list-style:none;margin:0;padding:88px 0;
+}
+.bp-col li{
+  height:44px;line-height:44px;text-align:center;
+  scroll-snap-align:center;color:#999;font-size:18px;
+}
+.bp-col li.active{color:#3D6B5C;font-weight:600}
+.bp-highlight{
+  position:absolute;left:0;right:0;top:88px;height:44px;
+  background:rgba(245,237,216,0.3);border-top:1px solid #BFD6CA;
+  border-bottom:1px solid #BFD6CA;pointer-events:none;
+}
+</style>
+</head>
+<body>
+<div class="shell">
+
+  <!-- STATUS BAR -->
+  <div class="sbar">
+    <span class="sbar-time">9:41</span>
+    <div class="sbar-right">
+      <svg width="18" height="13" viewBox="0 0 18 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0"    y="10"  width="3" height="3"  rx="0.7" fill="#000"/>
+        <rect x="5"    y="6.5" width="3" height="6.5" rx="0.7" fill="#000"/>
+        <rect x="10"   y="3.5" width="3" height="9.5" rx="0.7" fill="#000"/>
+        <rect x="15"   y="0"   width="3" height="13"  rx="0.7" fill="#000"/>
+      </svg>
+      <svg width="17" height="14" viewBox="0 0 17 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8.5 1C5.34 1 2.46 2.18 0.27 4.13 C0.09 4.29 0.08 4.57 0.25 4.74 L1.62 6.13 C1.78 6.29 2.04 6.30 2.21 6.15 C3.91 4.66 6.11 3.76 8.5 3.76 C10.89 3.76 13.09 4.66 14.79 6.15 C14.96 6.30 15.22 6.29 15.38 6.13 L16.75 4.74 C16.92 4.57 16.91 4.29 16.73 4.13 C14.54 2.18 11.66 1 8.5 1 Z" fill="#000"/>
+        <path d="M8.5 5.5 C6.50 5.5 4.66 6.22 3.24 7.40 C3.06 7.55 3.05 7.83 3.22 8.00 L4.62 9.40 C4.78 9.56 5.03 9.57 5.20 9.43 C6.10 8.69 7.25 8.25 8.5 8.25 C9.75 8.25 10.90 8.69 11.80 9.43 C11.97 9.57 12.22 9.56 12.38 9.40 L13.78 8.00 C13.95 7.83 13.94 7.55 13.76 7.40 C12.34 6.22 10.50 5.5 8.5 5.5 Z" fill="#000"/>
+        <path d="M8.5 10 C7.65 10 6.87 10.32 6.28 10.85 C6.10 11.01 6.09 11.29 6.26 11.46 L8.20 13.40 C8.37 13.57 8.63 13.57 8.80 13.40 L10.74 11.46 C10.91 11.29 10.90 11.01 10.72 10.85 C10.13 10.32 9.35 10 8.5 10 Z" fill="#000"/>
+      </svg>
+      <svg width="27" height="13" viewBox="0 0 27 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0.7" y="0.7" width="22.6" height="11.6" rx="3.2" stroke="#000" stroke-width="1.3"/>
+        <rect x="2.5" y="2.5" width="17"   height="8"    rx="2"   fill="#000"/>
+        <path d="M24.7 4.5 C25.8 4.5 25.8 8.5 24.7 8.5" stroke="#000" stroke-width="1.2" stroke-linecap="round"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- NAV BAR -->
+  <div class="nav">
+    <div class="nav-avt">🌙</div>
+  </div>
+
+  <!-- CHAT -->
+  <div class="chat" id="chat">
+  </div>
+
+  <!-- INPUT -->
+  <div class="inp-area">
+    <button class="inp-add">＋</button>
+    <input class="inp-box" id="ibox" type="text" placeholder="给点发消息…"/>
+    <button class="inp-send" id="isend">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+        <path d="M7 12V2M7 2L3 6M7 2L11 6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+  </div>
+</div>
+
+<script>
+// ─── DATA ───────────────────────────────────────────────
+const SIGNS=['白羊','金牛','双子','巨蟹','狮子','处女','天秤','天蝎','射手','摩羯','水瓶','双鱼'];
+const EMOJI={白羊:'♈',金牛:'♉',双子:'♊',巨蟹:'♋',狮子:'♌',处女:'♍',天秤:'♎',天蝎:'♏',射手:'♐',摩羯:'♑',水瓶:'♒',双鱼:'♓'};
+const PRESET_SIGN='白羊';
+
+// ─── 新增：用户信息全局状态 ───
+let userInfo={
+  birthday:'2000-04-01',
+  sunSign:'白羊',
+};
+
+// ─── 太阳星座推算函数 ───
+function getSunSignByBirthday(birthday){
+  // birthday 格式：yyyy-mm-dd
+  const [year,month,day]=birthday.split('-').map(Number);
+  const m=month,d=day;
+  
+  // 标准星座日期表
+  if((m===3&&d>=21)||(m===4&&d<=19))return'白羊';
+  if((m===4&&d>=20)||(m===5&&d<=20))return'金牛';
+  if((m===5&&d>=21)||(m===6&&d<=21))return'双子';
+  if((m===6&&d>=22)||(m===7&&d<=22))return'巨蟹';
+  if((m===7&&d>=23)||(m===8&&d<=22))return'狮子';
+  if((m===8&&d>=23)||(m===9&&d<=22))return'处女';
+  if((m===9&&d>=23)||(m===10&&d<=23))return'天秤';
+  if((m===10&&d>=24)||(m===11&&d<=22))return'天蝎';
+  if((m===11&&d>=23)||(m===12&&d<=21))return'射手';
+  if((m===12&&d>=22)||(m===1&&d<=19))return'摩羯';
+  if((m===1&&d>=20)||(m===2&&d<=18))return'水瓶';
+  if((m===2&&d>=19)||(m===3&&d<=20))return'双鱼';
+  return'白羊';
+}
+
+const DB={
+  白羊:{
+    overall:{stars:4,text:'太阳、水星都跟木星出现了互动，这周很适合讨论利益、金钱相关的事宜。这组星象很积极，有贵人加持。'},
+    career: {stars:4,text:'讨论酬劳、分成比例、薪资调整会有积极进展。有些人会在投资层面获得收益，本周也有人会中奖。'},
+    finance:{stars:4,text:'很适合讨论利益、金钱相关的事宜，包括处理银行业务。有些人会在投资层面获得收益，本周也有人会中奖。'},
+    love:   {stars:3,text:'如果有喜欢的人，处于暧昧、约会阶段，本周可在合适契机下表白。'},
+    study:  {stars:3,text:'新月的能量带来出行机会，可能很快有出差或旅行计划落实下来。'},
+    avoid:['不要冲动签新合同，先看完所有条款再决定','避免周一周二跟上级讨论加薪，容易被拒','警惕投资项目的高收益承诺，本周容易中招','健康注意：咽喉、脖颈、消化系统、头痛'],
+    bad:'这周效率提升，因为新月的关系，会有财务上的进展。有些人本周业绩完成度很高，压力减少。',
+    detail:{
+      career:'木星会带来勇气和决心，可能意味着你正式公布某个消息，或者在竞争某个名额、职位上有重要进展。这周也有贵人加持，很适合主动出击。如果你在讨论薪资调整、分成比例、个人福利相关事宜，这周会有积极的进展。',
+      finance:'太阳、水星都跟木星出现了互动，很适合讨论利益、金钱相关的事宜。如果你在讨论酬劳、分成比例、薪资调整、个人福利相关事宜，包括处理一些银行业务，这周会有积极的进展。配合这组星象，有些人会在投资层面获得收益，本周也有人会中奖。',
+      love:'如果你有喜欢的人，处于暧昧、约会阶段，本周可在合适契机下表白。\n\n爱情，是需要勇敢一点。',
+      study:'水星的能量带来出行机会，可能很快有出差或旅行计划落实下来。本周有些人会考试或办理证件。',
+    },
+    weeklyDetail:`太阳、水星都跟木星出现了互动，同时本周迎来了一次新月。综合这几个星象，很适合讨论利益、金钱相关的事宜，而且这组星象很积极。如果你在讨论酬劳、分成比例、薪资调整、个人福利相关事宜，包括处理一些银行业务，这周会有积极的进展。\n\n配合这组星象，有些人会在投资层面获得收益，本周也有人会中奖。木星会带来勇气和决心，可能意味着你正式公布某个消息，或者在竞争某个名额、职位上有重要进展——这周也有贵人加持，所以本周适合主动出击。\n\n随着水星进入新位置，本周会认识新朋友、结交新客户资源。如果希望得到新合作机会，未来三周合作运显著提升。`,
+    avoidTip:'1. 周一/周二上午把谈薪、加薪、奖金兑现的邮件或聊天主动开起来，下午之前发出。\n2. 想表白或捅破暧昧的窗户纸，挑周三到周五晚上 8 点后的轻松场合，不要在工作日早上。\n3. 投资本周可以加仓一笔小金额（不超总仓位 5%），但不要追高，避开周五下午开盘前 1 小时。\n4. 出门前确认包里带身份证/驾照——本周容易临时被叫去办证、签合同。'
+  },
+  金牛:{
+    overall:{stars:4,text:'新月到来，会带来更多勇气和判断力。你会更以自己的感受为出发点，规避掉一些人情上的内耗。'},
+    career: {stars:4,text:'新月给一些人带来新的生活状态和工作机会，比如要入职新工作环境、有新职位、要开始接触新业务内容。'},
+    finance:{stars:3,text:'跟伴侣在消费观念上容易出现摩擦，但需要彼此让步才能解决。'},
+    love:   {stars:3,text:'感情状态上迎来转变，例如脱单、结婚、恢复单身生活等。'},
+    study:  {stars:3,text:'水星、太阳跟木星的互动有利于竞标、拍卖、签约、考试、购买电子或交通工具。'},
+    avoid:['不要在周一周二跟伴侣讨论大额消费，容易引发争执','避免临时接受上级的紧急任务，先确认截止时间和资源','警惕新工作机会的试用期陷阱，务必问清楚转正条件','健康注意：肩颈问题、口腔问题'],
+    bad:'这周有项目落实下来，整体执行进度和效率都很高。需要注意本周上级容易有很临时的想法、临时的要求让你处理。',
+    detail:{
+      career:'你向来不缺主见。本周随着你星座的新月到来，会带来更多勇气，也带来更多判断力。新月给一些人带来新的生活状态和工作机会，比如要入职新工作环境、有新职位、要开始接触新业务内容。这种变化让你不得不自我调整，要怎么在职场中应付各种人事关系和项目问题。',
+      finance:'这周的新月让你更以自己的感受为出发点，帮你规避掉一些人情上的内耗。如果你不是单身，跟伴侣在消费观念上容易出现摩擦，但需要彼此让步才能解决。水星、太阳跟木星的互动有利于竞标、拍卖、签约、考试、购买电子或交通工具。',
+      love:'感情状态上迎来转变，例如脱单、结婚、恢复单身生活等。水星会在本周来到新位置，有些人会做医美、处理或治疗口腔问题。这周需要注意肩颈问题。\n\n爱情，是为暧昧心动。',
+      study:'职场来看，随着新月到来，这周有项目落实下来，整体执行进度和效率都很高。需要注意本周上级容易有很临时的想法、临时的要求让你处理。',
+    },
+    weeklyDetail:`你向来不缺主见。本周随着你星座的新月到来，会带来更多勇气，也带来更多判断力。也许你现在意识到工作环境、人际状况已出现很多变化——这种变化让你不得不自我调整。\n\n这周的新月让你更以自己的感受为出发点，帮你规避掉一些人情上的内耗。新月也给一些人带来新的生活状态和工作机会，比如要入职新工作环境、有新职位、要开始接触新业务内容等等。`,
+    avoidTip:'1. 周三到周五晚上 8 点后，找个轻松的场合跟伴侣谈一次消费观念，不要在工作日早上。\n2. 新工作机会出现时，周二/周三上午要求 HR 提供完整的合同和试用期条款，不要口头承诺。\n3. 周四/周五可以接受新项目，但先确认资源和截止时间，不要被临时任务打乱节奏。\n4. 本周做医美或口腔治疗，挑周二到周四，避开周一和周五。'
+  },
+  双子:{
+    overall:{stars:3,text:'这周需要看清楚一些现实层面的处境和问题。新月在本周出现，意味着你会找到答案，但请你记得——不要拖延。'},
+    career: {stars:3,text:'太阳、水星跟木星的互动给你带来运势改善，比如财务层面有机会、有好消息、收获礼物。'},
+    finance:{stars:4,text:'财务层面有机会、有好消息、收获礼物，或得到奖金、红包等。这组星象会带来自我表达的机会。'},
+    love:   {stars:3,text:'不要拖延，对于一些机会——你很喜欢的、对你有帮助的，请务必主动表达、毛遂自荐。'},
+    study:  {stars:3,text:'这组星象会带来奔波，比如出差、频频外勤应酬或要随时跑动，很耗费体力的事情，但要有耐心。'},
+    avoid:['不要在周一周二跟消耗你的人有深度沟通，先观察再决定','避免接受看不清前景的工作机会，务必问清楚发展潜力','警惕同事的妒忌言论，本周不要在办公室讨论个人成就','健康注意：体力消耗大，需要充分休息'],
+    bad:'这组星象会带来自我表达的机会，针对一些机会——你很喜欢的、对你有帮助的，请务必主动表达、毛遂自荐。这组星象也给许多人带来奔波，但这些事情带来的影响都很正面——动起来，能量就会流动起来。',
+    detail:{
+      career:'这周需要看清楚一些现实层面的处境和问题。例如人际相处问题，对方是不是在消耗你。再或者在工作层面上，这份工作能否给你带来自我提升和发展潜力。好的是，新月在本周出现，意味着你会找到答案，但请你记得——不要拖延。',
+      finance:'本周太阳、水星跟木星的互动给你带来运势改善，比如财务层面有机会、有好消息、收获礼物，或得到奖金、红包等。这组星象会带来自我表达的机会，针对一些机会——你很喜欢的、对你有帮助的，请务必主动表达、毛遂自荐。',
+      love:'这组星象也给许多人带来奔波，比如出差、频频外勤应酬或要随时跑动，很耗费体力的事情，但要有耐心。水星会在本周来到你的星座，依旧在社交上有助力，但注意，本周有人也会妒忌你，或对你有不公平、断章取义的评价。\n\n爱情，是不要急着透露太多隐私。',
+      study:'职场来看，随着水星来到新位置，配合木星的能量，本周适合主动洽询合作或跟上级汇报任务进展。另外这周有合约、文书类内容获得确认，上半周比较反复，下半周会稳定一点。',
+    },
+    weeklyDetail:`这周需要看清楚一些现实层面的处境和问题。例如人际相处问题，对方是不是在消耗你，或者对方的言行很容易影响你的判断和情绪。再或者在工作层面上，这份工作能否给你带来自我提升和发展潜力。\n\n好的是，新月在本周出现，意味着你会找到答案，但请你记得——不要拖延。本周太阳、水星跟木星的互动给你带来运势改善，比如财务层面有机会、有好消息、收获礼物，或得到奖金、红包等。`,
+    avoidTip:'1. 周二/周三上午，主动向上级或合作方表达你的想法和需求，不要等待被问。\n2. 周三到周五，如果有财务机会（奖金、红包、新项目），立即跟进，不要拖延。\n3. 周四/周五可以接受出差或外勤任务，但周末前要确保有充分休息时间。\n4. 本周避免在办公室讨论个人成就或薪资，防止引发同事妒忌。'
+  },
+  巨蟹:{
+    overall:{stars:4,text:'这周真的很适合主动社交融入团体中，包括主动认识新资源。木星的能量会让你意识觉醒，释怀或找到解决策略。'},
+    career: {stars:4,text:'如果你目前在想跳槽、换工作的事情，或者待业想要赚钱机会，通过本周的社交，也许就会获得资讯或来自社交人员的帮助。'},
+    finance:{stars:3,text:'随着新月影响，你可能本周有偏财，或能做兼职赚外快。注意，本周在投资上不冒险，尽可能保守，该止损时要笃定止损。'},
+    love:   {stars:4,text:'这组星象给一些人带来了婚恋机会，比如登记结婚或出现桃花机会。'},
+    study:  {stars:3,text:'水星会在本周来到新位置，关注自己的健康，肠胃、脖颈、乳腺，女性也需要关注下生理期。'},
+    avoid:['不要在周一周二做大额投资决定，本周容易止损不及时','避免跟不靠谱的人合伙，先观察三周再决定','警惕呼吸道过敏，本周容易感冒或过敏性鼻炎','健康注意：肠胃、脖颈、乳腺、呼吸道'],
+    bad:'木星的能量会让你意识觉醒——也许过去三周你因为某个人的言语、某个工作上的事情一直内耗、想不通或气愤，而此时随着木星能量被激活——你突然就释怀或找到解决策略了。',
+    detail:{
+      career:'这周，停留在你星座的木星被太阳、水星激活，而且还有一次新月出现。这组星象代表本周真的很适合主动社交融入团体中，包括主动认识新资源。如果你目前在想跳槽、换工作的事情，或者待业想要赚钱机会，通过本周的社交，也许就会获得资讯或来自社交人员的帮助。',
+      finance:'随着新月影响，你可能本周有偏财，或能做兼职赚外快。注意，本周在投资上不冒险，尽可能保守，该止损时要笃定止损。如果你在找人合伙，或希望他人帮忙，那么本周也会有进展。',
+      love:'这组星象给一些人带来了婚恋机会，比如登记结婚或出现桃花机会。水星会在本周来到新位置，关注自己的健康，肠胃、脖颈、乳腺，女性也需要关注下生理期。另外呼吸道相关问题也要注意，近期容易出现过敏类呼吸道状况。\n\n爱情，是让关系自然发展。',
+      study:'职场来看，木星的能量被激活的时候，就是能看清楚局面的时刻。好的是，这周有任务收尾或某个明明不靠谱的要求、任务，终于不了了之了。这周有些人会临时请假或确认出差安排。',
+    },
+    weeklyDetail:`这周，停留在你星座的木星被太阳、水星激活，而且还有一次新月出现。这组星象代表本周真的很适合主动社交融入团体中，包括主动认识新资源。如果你目前在想跳槽、换工作的事情，或者待业想要赚钱机会，通过本周的社交，也许就会获得资讯或来自社交人员的帮助。\n\n木星的能量会让你意识觉醒——也许过去三周你因为某个人的言语、某个工作上的事情一直内耗、想不通或气愤，而此时随着木星能量被激活——你突然就释怀或找到解决策略了。`,
+    avoidTip:'1. 周二/周三上午，主动联系想要合伙或寻求帮助的人，不要等待被邀请。\n2. 周三到周五晚上，参加社交活动或聚会，这是结交新资源的黄金时段。\n3. 周四/周五可以做兼职或偏财项目，但不要在周一周二做大额投资决定。\n4. 本周如果有止损的投资，周二/周三上午果断执行，不要拖延。'
+  },
+  狮子:{
+    overall:{stars:4,text:'太阳、水星都跟木星出现了互动。如果你过去一段时间正在努力做某件事，这周你会开始看到自己因此获得的回报或得到的成长。'},
+    career: {stars:4,text:'这是一个有利于规划、执行关于事业和学业"未来"的时刻。如果你有这方面的念头、计划、目标或想要在事业或学业上争取什么，这周就大胆去做。'},
+    finance:{stars:3,text:'有些人会晋升成为父母，或你在意的人可能有结婚生子计划，因此你的身份也会因此获得改变。'},
+    love:   {stars:3,text:'有些人会在本周有相亲，或因熟人介绍而有桃花机会。'},
+    study:  {stars:4,text:'有些人会在本周要出入宗教场所、医疗机构，或处理租赁、个人证件、社会福利相关业务上获得进展。'},
+    avoid:['不要在周一周二跟家人讨论工作计划，容易引发观念冲突','避免在工作场合讨论八卦或家庭私事，容易被传播','警惕男性长辈的健康问题，本周要主动关心','健康注意：男性长辈健康、家庭关系'],
+    bad:'这周的星象能量会让你想要振作一点。因为这个星象的影响，有些人会晋升成为父母，或你在意的人可能有结婚生子计划，因此你的身份也会因此获得改变。',
+    detail:{
+      career:'太阳、水星都跟木星出现了互动。如果你过去一段时间正在努力做某件事，或在投入时间经营、学习，那么本周这件事你会开始看到自己因此获得的回报或得到的成长了。这是一个有利于规划、执行关于事业和学业"未来"的时刻——如果你有这方面的念头、计划、目标或想要在事业或学业上争取什么，这周就大胆去做。',
+      finance:'有些人会在本周要出入宗教场所、医疗机构，或处理租赁、个人证件、社会福利相关业务上获得进展。这周还有一次新月，此次新月会给一些人带来入职新工作、收到 offer，或要"官宣"某个决定、状态的机会。',
+      love:'有些人则会在本周有相亲，或因熟人介绍而有桃花机会。水星会在本周来到新位置，需要关注一下男性长辈健康，或跟家人的关系。\n\n爱情，是不要在乎输赢。',
+      study:'职场来看，这周太阳、水星与木星的互动增加了合作机会，可能也有意想不到的客户资源或任务下达。另外，水星的能量需要克制自己在工作场合讨论八卦的念头。新月的到来，意味着有项目会进入调整阶段。',
+    },
+    weeklyDetail:`太阳、水星都跟木星出现了互动。如果你过去一段时间正在努力做某件事，或在投入时间经营、学习，那么本周这件事你会开始看到自己因此获得的回报或得到的成长了。\n\n这是一个有利于规划、执行关于事业和学业"未来"的时刻——如果你有这方面的念头、计划、目标或想要在事业或学业上争取什么，这周就大胆去做。因为这个星象的影响，有些人会晋升成为父母，或你在意的人可能有结婚生子计划。`,
+    avoidTip:'1. 周二/周三上午，向上级或客户提出你的事业规划和目标，不要等待被问。\n2. 周三到周五，处理证件、租赁、医疗等行政事务，这些事项本周推进顺利。\n3. 周四/周五可以接受新工作机会或 offer，但先确认薪资和发展空间。\n4. 本周避免在工作场合讨论八卦或家庭私事，保持专业形象。'
+  },
+  处女:{
+    overall:{stars:3,text:'本周星象有积极信号，太阳、水星都跟木星出现了互动。保持稳定的心态，一切都会向好的方向走。'},
+    career: {stars:3,text:'新月的能量会带来一些新的机会和转变。这周适合推进签约、谈判、提案、面试等事宜。'},
+    finance:{stars:3,text:'财运平稳，有小额意外收入的可能。避免冲动消费和大额投资，保持保守态度。'},
+    love:   {stars:3,text:'感情需要耐心经营，直接沟通好过绕弯子。选好时机再开口，会有更好的效果。'},
+    study:  {stars:3,text:'专注度一般，给自己留出思考和消化的空间。不要过度施压，顺势而为最重要。'},
+    avoid:['不要在周一周二做重大决定，先观察再行动','避免冲动消费或大额投资，本周容易后悔','警惕人际关系中的硬碰硬，保持柔和态度','健康注意：咽喉、脖颈、消化系统、头痛'],
+    bad:'这周的考验主要来自外部环境，不是你的问题。保持稳定的内核，慢下来看清楚局势。周中是个转折点，之后整体会逐渐改善——一切都会向着更好的方向前进的。',
+    detail:{
+      career:'本周星象有积极信号，太阳、水星都跟木星出现了互动。新月的能量会带来一些新的机会和转变。这周适合推进签约、谈判、提案、面试等事宜。注意跟上级和同事的沟通方式，周中之后整体有所改善。',
+      finance:'财运平稳，不适合大额投资或冲动消费。有些人会有小额意外之财。如果有银行、报销、收款这类事务，这周可以着手处理，会比较顺。',
+      love:'感情上这周需要耐心。避免把细节想太多，钝感力是你本周的保护色。如果有想说的话，选择时机和方式比说什么更重要。等到周中之后再开口，效果会更好。\n\n爱情，是慢下来，才能看清楚。',
+      study:'给自己留出思考和消化的时间，不要过度施压。保持节奏，顺势而为，现在需要的是稳，不是冲。',
+    },
+    weeklyDetail:`本周星象有积极信号，太阳、水星都跟木星出现了互动。新月的能量会带来一些新的机会和转变。这周适合推进签约、谈判、提案、面试等事宜。\n\n保持稳定的心态，一切都会向好的方向走。这周的考验主要来自外部环境，不是你的问题。保持稳定的内核，慢下来看清楚局势。周中是个转折点，之后整体会逐渐改善。`,
+    avoidTip:'1. 周二/周三上午，如果有签约或谈判，先仔细阅读所有条款，不要急着签字。\n2. 周三到周五，可以进行面试或提案，但周一周二先观察再行动。\n3. 本周避免大额消费或投资决定，保持保守态度，周中之后再考虑。\n4. 人际关系上保持柔和态度，不要硬碰硬，周中之后会有转机。'
+  },
+  天秤:{
+    overall:{stars:4,text:'请你不要放大自己的焦虑或与他人的比较。随着本周太阳、水星出现互动，你的状态会明显好转。'},
+    career: {stars:4,text:'这组星象会带来财运或其他赚钱机会，需要你把握，甚至主动促成。这周可能要适当放下一些身段。'},
+    finance:{stars:4,text:'这组星象会带来财运或其他赚钱机会，需要你把握，甚至主动促成。这周有些人会复查某些身体指标、数据，或要处理贷款、信用卡或其他银行业务。'},
+    love:   {stars:4,text:'这周的新月也给一些人带来了桃花机会，或孕育新生命的机会。有些人会迎来调休或出差任务。'},
+    study:  {stars:3,text:'水星的能量会拓展社交机会，容易接触新资源或开始跟之前慢慢淡掉的关系有回温、再次建联。'},
+    avoid:['不要在周一周二跟竞争对手或攀比的人有深度互动','避免冲动出行，本周出行要多备选方案','警惕贷款或信用卡的隐藏条款，务必看清楚','健康注意：咽喉、脖颈、消化系统、头痛'],
+    bad:'事实上从上周开始你就已经想明白许多事情，本周更有积极进展和转变。这周可能要适当放下一些身段（其实并不会影响你的面子）才能让一些事情顺利。',
+    detail:{
+      career:'请你不要放大自己的焦虑或与他人的比较。随着本周太阳、水星出现互动，你的状态会明显好转。事实上从上周开始你就已经想明白许多事情，本周更有积极进展和转变。',
+      finance:'这组星象会带来财运或其他赚钱机会，需要你把握，甚至主动促成。这周可能要适当放下一些身段才能让一些事情顺利。这周有些人会复查某些身体指标、数据，或要处理贷款、信用卡或其他银行业务。',
+      love:'你身边某个熟悉的人，也许或多或少跟你有些竞争或攀比关系，这周要放轻松。这周的新月也给一些人带来了桃花机会，或孕育新生命的机会。有些人会迎来调休或出差任务。本周出行要注意，多备选方案。\n\n爱情，是好感来得很快的一周。',
+      study:'职场来看，这周行动力很不错，自己也有想法想把一些事情做好。本周有贵人运，会因为贵人介绍客户或资源。水星的能量会拓展社交机会，容易接触新资源或开始跟之前慢慢淡掉的关系有回温。',
+    },
+    weeklyDetail:`请你不要放大自己的焦虑或与他人的比较。也许近期你觉得自己内心的焦灼感变得多了起来，一方面担心被取代，另一方面则是觉得自己的实力本不该有这样的"境遇"。但放心，随着本周太阳、水星出现互动，你的状态会明显好转。\n\n事实上从上周开始你就已经想明白许多事情，本周更有积极进展和转变。这组星象会带来财运或其他赚钱机会，需要你把握，甚至主动促成。`,
+    avoidTip:'1. 周二/周三上午，主动跟客户或合作方沟通，争取财务机会，不要等待被邀请。\n2. 周三到周五，处理贷款、信用卡、银行业务，但务必看清楚所有条款，不要被隐藏费用坑。\n3. 周四/周五可以接受出差或调休任务，但出行前多备选方案，防止临时变动。\n4. 本周避免跟竞争对手或攀比的人有深度互动，保持距离，放轻松。'
+  },
+  天蝎:{
+    overall:{stars:4,text:'这周有一次新月出现在你的对宫位置，此次新月会帮你带来一些新的东西——比如新的合作方式、新的合作机会、新的人缘。'},
+    career: {stars:4,text:'由于新月影响，这周有些人会面试新工作或临时帮他人处理一些任务——会有佣金或其他方面的回报。'},
+    finance:{stars:3,text:'太阳、水星跟木星的互动，这个星象代表你要计划玩乐项目，例如看演出、追星、看展览，或新的出行计划要落实。'},
+    love:   {stars:4,text:'这次新月同样会让你松一口气——比如你可能跟某个人都有某个想法，但彼此却都没有直说，但这周却可以直说了。'},
+    study:  {stars:3,text:'这个星象有利于公证材料、维权打官司、考试、出版和发表作品。有些人则要开始巩固自己技能的短板。'},
+    avoid:['不要在周一周二做重大合作决定，先观察对方三周再签约','避免感冒和过敏，本周容易中招，做好防护','警惕睡眠不足导致的判断失误，本周要保证充足睡眠','健康注意：感冒、过敏、头痛、睡眠、生理周期'],
+    bad:'综合来说，这周的星象能量会让你想要振作一点，包括之前让你思维陷入死胡同的一些事情，突然就觉得不重要了，自己也会豁达许多。',
+    detail:{
+      career:'这周有一次新月出现在你的对宫位置，此次新月会帮你带来一些新的东西——比如新的合作方式、新的合作机会、新的人缘。由于新月影响，这周有些人会面试新工作或临时帮他人处理一些任务——会有佣金或其他方面的回报。',
+      finance:'太阳、水星跟木星的互动，这个星象代表你要计划玩乐项目，例如看演出、追星、看展览，或新的出行计划要落实。这个星象也有利于公证材料、维权打官司、考试、出版和发表作品。',
+      love:'这次新月同样会让你松一口气——比如你可能跟某个人都有某个想法，但彼此却都没有直说，但这周却可以直说了。综合来说，这周的星象能量会让你想要振作一点，自己也会豁达许多。水星在本周来到新位置，有些人会跟旧人出现互动，或故地重游。\n\n爱情，是让自己来决定感情走向。',
+      study:'职场来看，这周合作运有改善。随着新月的能量，合作开始逐渐增加，但注意上级的指令，可能让你有些措手不及。',
+    },
+    weeklyDetail:`这周有一次新月出现在你的对宫位置，此次新月会帮你带来一些新的东西——比如新的合作方式、新的合作机会、新的人缘，甚至给部分人带来新的情感念头和机遇等。\n\n这次新月同样会让你松一口气——比如你可能跟某个人都有某个想法，但彼此却都没有直说，但这周却可以直说了，两个人都可以松一口气。综合来说，这周的星象能量会让你想要振作一点，自己也会豁达许多。`,
+    avoidTip:'1. 周二/周三上午，主动跟合作方或新机会的人表达你的想法，不要等待被问。\n2. 周三到周五，可以面试新工作或接受临时任务，但周一周二先观察再决定。\n3. 周四/周五可以计划玩乐项目（看演出、追星、出行），但本周要保证充足睡眠。\n4. 本周做好防护，避免感冒和过敏，不要熬夜，睡眠不足会影响判断力。'
+  },
+  射手:{
+    overall:{stars:4,text:'太阳、水星跟你的守护星木星出现了和谐的互动，这周状态明显得到改善，运势开始上扬。'},
+    career: {stars:4,text:'因为这组星象的关系，财务方面也有积极的进展，有些人会获得红包、奖金，或补贴，以及一些人会在薪酬上获得调整。'},
+    finance:{stars:4,text:'这组星象也代表你更有执行力，生活的掌控欲会回归。与此同时，配合新月的能量，对于求职、跳槽的人来说，本周可以投入更多时间。'},
+    love:   {stars:3,text:'有些人会在本周约会或对喜欢的人表白。如果你不是单身的状态，这周你们之间的一些约定会有变化。'},
+    study:  {stars:3,text:'你的社交安排也会增加，工作上的合作伙伴或私人朋友的邀约会增加，你可能也要为别人过生日或购买礼物。'},
+    avoid:['不要在周一周二做重大计划调整，先确认所有细节再改','避免肠胃问题，本周容易因为应酬或不规律饮食出现不适','警惕临时任务过多导致的疲劳，本周要合理分配精力','健康注意：肠胃、出痘、腰椎、烫伤、眼睛'],
+    bad:'需要注意的是，随着水星来到新位置，这周可能有些安排、计划需要临时调整，所以自己要随机应变，不要固执。你会得到来自朋友或工作伙伴的一些建议，这些建议有助于你解决某个私人问题或工作中的阻碍。',
+    detail:{
+      career:'太阳、水星跟你的守护星木星出现了和谐的互动，这周状态明显得到改善，运势开始上扬。因为这组星象的关系，财务方面也有积极的进展，有些人会获得红包、奖金，或补贴，以及一些人会在薪酬上获得调整。这组星象也代表你更有执行力，生活的掌控欲会回归。',
+      finance:'配合新月的能量，对于求职、跳槽的人来说，本周可以投入更多时间，因为会有进展。随着水星来到新位置，这周可能有些安排、计划需要临时调整，所以自己要随机应变。你会得到来自朋友或工作伙伴的一些建议，这些建议有助于你解决某个私人问题或工作中的阻碍。',
+      love:'你的社交安排也会增加，工作上的合作伙伴或私人朋友的邀约会增加，你可能也要为别人过生日或购买礼物。本周需要关注肠胃、出痘、腰椎、烫伤、眼睛方面的健康问题。有些人会在本周约会或对喜欢的人表白。\n\n爱情，是让自己活跃一点。',
+      study:'职场来看，效率增加的一周，合作运明显走高。这周涉及到合作方、供应商方面的事情要仔细一点，容易有数据或落地层面上的问题要修正。',
+    },
+    weeklyDetail:`太阳、水星跟你的守护星木星出现了和谐的互动，这周状态明显得到改善，运势开始上扬。因为这组星象的关系，财务方面也有积极的进展，有些人会获得红包、奖金，或补贴，以及一些人会在薪酬上获得调整。\n\n这组星象也代表你更有执行力，生活的掌控欲会回归。与此同时，配合新月的能量，对于求职、跳槽的人来说，本周可以投入更多时间，因为会有进展。`,
+    avoidTip:'1. 周二/周三上午，主动跟上级或客户沟通，争取红包、奖金或薪酬调整，不要被动等待。\n2. 周三到周五，如果有求职或跳槽机会，立即跟进，本周推进顺利。\n3. 周四/周五可以参加社交活动或朋友聚会，但周一周二先确认所有计划细节，防止临时调整。\n4. 本周做好肠胃保护，避免不规律饮食或过度应酬，保持精力充沛。'
+  },
+  摩羯:{
+    overall:{stars:4,text:'这是需要取悦自己的一周。当太阳、水星跟木星出现互动的时候，你会更在意自己的感受和利益。'},
+    career: {stars:4,text:'本周适合处理感情、合作、人际关系。如果你有喜欢的人，这周你会忠于自己的感受和情感，可以积极表达爱意。'},
+    finance:{stars:3,text:'找准机会，可以在这周推进一些关于合作、承诺、约定的事情。这周也有利于处理法律事务、签署合同。'},
+    love:   {stars:4,text:'这周你会忠于自己的感受和情感，可以积极表达爱意。如果你在处理某个人际关系上的问题，这周也会有进展。'},
+    study:  {stars:3,text:'新月的能量会给你带来新的想法和计划。这周适合制定新的目标和计划，为下一阶段做准备。'},
+    avoid:['不要在周一周二签署重大合同，先让律师审核所有条款','避免冲动表达爱意，挑周三到周五晚上 8 点后的轻松场合','警惕社交活动的过度消费，本周容易为聚会花冤枉钱','健康注意：咽喉、脖颈、消化系统、头痛'],
+    bad:'新月的能量会给你带来新的想法和计划。这周也有利于处理法律事务、签署合同。如果你在处理某个人际关系上的问题，这周也会有进展。',
+    detail:{
+      career:'这是需要取悦自己的一周。当太阳、水星跟木星出现互动的时候，你会更在意自己的感受和利益，因此本周适合处理感情、合作、人际关系。如果你有喜欢的人，这周你会忠于自己的感受和情感，可以积极表达爱意。',
+      finance:'找准机会，可以在这周推进一些关于合作、承诺、约定的事情。这周也有利于处理法律事务、签署合同。新月的能量会给你带来新的想法和计划。',
+      love:'这周你会忠于自己的感受和情感，可以积极表达爱意。如果你在处理某个人际关系上的问题，这周也会有进展。新月的能量会给你带来新的想法和计划，包括对感情的新认识和新期待。\n\n爱情，是适合推进你的想法。',
+      study:'职场来看，这周太阳、水星与木星的互动会增加你的自信心和表达能力。这是一个很好的时机来推进你想要的项目或争取你想要的机会。',
+    },
+    weeklyDetail:`这是需要取悦自己的一周。当太阳、水星跟木星出现互动的时候，你会更在意自己的感受和利益，因此本周适合处理感情、合作、人际关系。\n\n例如你有喜欢的人，这周你会忠于自己的感受和情感，可以积极表达爱意，找准机会，可以在这周推进一些关于合作、承诺、约定的事情。新月的能量会给你带来新的想法和计划。`,
+    avoidTip:'1. 周二/周三上午，如果有合作或承诺要推进，主动发起沟通，不要等待被问。\n2. 周三到周五晚上 8 点后，如果想表达爱意或处理人际关系问题，挑轻松场合，不要在工作日早上。\n3. 周四/周五可以签署合同，但周一周二先让律师审核所有条款，不要急着签字。\n4. 本周社交活动增加，但要控制消费，不要为聚会花冤枉钱。'
+  },
+  水瓶:{
+    overall:{stars:4,text:'本周星象能量很强，太阳、水星跟木星的互动会给你带来新的视角和机会。这是一个充满可能性的一周。'},
+    career: {stars:4,text:'这周很适合推进创意项目、发表作品或进行创新的工作。你的想法会得到认可和支持。'},
+    finance:{stars:3,text:'财运平稳，有一些意外的收入机会。这周也很适合进行投资或理财规划。'},
+    love:   {stars:3,text:'感情上这周需要更多的沟通和理解。如果有想说的话，这周是个不错的时机。'},
+    study:  {stars:4,text:'这周很适合学习新知识、拓展视野。你的思维会变得更加开阔，能够看到更多的可能性。'},
+    avoid:['不要在周一周二发表创意作品，先让信任的人审核再发布','避免冲动投资，本周有意外收入但也容易被诱惑','警惕新合作机会的隐藏条款，务必问清楚细节','健康注意：咽喉、脖颈、消化系统、头痛'],
+    bad:'本周星象能量很强，太阳、水星跟木星的互动会给你带来新的视角和机会。新月的能量会为你打开新的大门，让你看到更多的可能性。',
+    detail:{
+      career:'本周星象能量很强，太阳、水星跟木星的互动会给你带来新的视角和机会。这周很适合推进创意项目、发表作品或进行创新的工作。你的想法会得到认可和支持，这是展现自己独特才华的好时机。',
+      finance:'财运平稳，有一些意外的收入机会。这周也很适合进行投资或理财规划。新月的能量会为你打开新的大门，让你看到更多的可能性。这周可能会有一些新的合作机会或商业想法出现。',
+      love:'感情上这周需要更多的沟通和理解。如果有想说的话，这周是个不错的时机。新月的能量会为你的感情生活带来新的转机。这周也很适合进行一些社交活动，扩展你的人脉圈子。\n\n爱情，是希望被当成"自己人"。',
+      study:'这周很适合学习新知识、拓展视野。你的思维会变得更加开阔，能够看到更多的可能性。太阳、水星与木星的互动会增强你的学习能力和理解力。',
+    },
+    weeklyDetail:`本周星象能量很强，太阳、水星跟木星的互动会给你带来新的视角和机会。这是一个充满可能性的一周。\n\n这周很适合推进创意项目、发表作品或进行创新的工作。你的想法会得到认可和支持。新月的能量会为你打开新的大门，让你看到更多的可能性。`,
+    avoidTip:'1. 周二/周三上午，主动向上级或客户展示你的创意想法，不要等待被问。\n2. 周三到周五，如果有创意作品要发表，先让信任的人审核再发布，不要急着公开。\n3. 周四/周五可以接受新合作机会，但务必问清楚所有细节和条款，不要被诱惑。\n4. 本周有意外收入，但不要冲动投资，保持理性，先观察再决定。'
+  },
+  双鱼:{
+    overall:{stars:4,text:'本周星象能量温暖而积极，太阳、水星跟木星的互动会给你带来内心的平静和力量。这是一个充满希望的一周。'},
+    career: {stars:4,text:'这周很适合进行团队合作和人际交往。你的亲和力会得到充分发挥，容易获得他人的支持和帮助。'},
+    finance:{stars:3,text:'财运平稳，有一些来自人脉的收入机会。这周也很适合进行一些慈善或公益活动。'},
+    love:   {stars:4,text:'感情上这周充满温暖和理解。如果有想表达的感受，这周是个很好的时机。新月会为你的感情生活带来新的开始。'},
+    study:  {stars:3,text:'这周很适合进行一些内省和思考。你的直觉会变得更加敏锐，能够更好地理解他人的需求。'},
+    avoid:['不要在周一周二做重大人事决定，先观察团队动态再行动','避免过度付出导致的情绪消耗，本周要学会说"不"','警惕被人利用你的善良，本周容易被请求帮忙','健康注意：咽喉、脖颈、消化系统、头痛'],
+    bad:'本周星象能量温暖而积极，太阳、水星跟木星的互动会给你带来内心的平静和力量。新月的能量会为你的生活带来新的转机和希望。',
+    detail:{
+      career:'本周星象能量温暖而积极，太阳、水星跟木星的互动会给你带来内心的平静和力量。这周很适合进行团队合作和人际交往。你的亲和力会得到充分发挥，容易获得他人的支持和帮助。',
+      finance:'财运平稳，有一些来自人脉的收入机会。这周也很适合进行一些慈善或公益活动。新月的能量会为你的生活带来新的转机和希望。这周可能会有一些意想不到的帮助或支持出现。',
+      love:'感情上这周充满温暖和理解。如果有想表达的感受，这周是个很好的时机。新月会为你的感情生活带来新的开始。这周也很适合进行一些浪漫的活动或表达你的爱意。\n\n爱情，是做一些浪漫的事情。',
+      study:'这周很适合进行一些内省和思考。你的直觉会变得更加敏锐，能够更好地理解他人的需求。太阳、水星与木星的互动会增强你的创意思维和想象力。',
+    },
+    weeklyDetail:`本周星象能量温暖而积极，太阳、水星跟木星的互动会给你带来内心的平静和力量。这是一个充满希望的一周。\n\n这周很适合进行团队合作和人际交往。你的亲和力会得到充分发挥，容易获得他人的支持和帮助。新月的能量会为你的生活带来新的转机和希望。`,
+    avoidTip:'1. 周二/周三上午，主动跟团队成员或合作方沟通，展现你的亲和力，不要被动等待。\n2. 周三到周五，如果有浪漫的想法或表达爱意的计划，挑晚上 8 点后的轻松场合。\n3. 周四/周五可以参加团队活动或慈善项目，但周一周二先观察再承诺，不要过度付出。\n4. 本周容易被请求帮忙，要学会说"不"，保护自己的精力和情绪。'
+  },
+};
+
+const WEEK_OVERVIEW = `【本周星象概览 05.11-05.17】\n本周星象出现了许多积极的信号——太阳、水星都跟幸运星木星出现了互动，而且太阳跟水星出现了互动。\n\n木星会带来启发和新思路，让我们变得积极乐观。如果你过去一段时间处于焦灼、无力、迷茫的感觉，这组星象会缓解，甚至让你重新找回力量和自信，在困难处看到生机，并有信心和能力解决问题。\n\n会更有勇气，那些一直拖延或没有勇气去做的事情，这周可能会非常自然地完成。很适合推进签约、谈判、提案、面试。这组星象也意味着，一些人的个人发展机会在"外部"——其他行业领域、其他城市、其他地区，很吸引人，但也意味着要在新领域里经历摸索期。\n\n开始期待之前的承诺是否兑现，最终结果要看 6 月底。本周可以时不时提起你在意的承诺，看看对方反应。也是重新找回生活掌控感的时刻——只要心态好、不入局，生活节奏和个人状态都会更稳定，逐渐上扬。\n\n这组星象适合发表作品、出版、版权交易、考试，以及处理交通工具相关事宜（买卖、维修、售后、保险）。本周还会迎来一次新月，水星也会在新月当天进入自己的守护星座。新月+水星的能量是"把想法和计划落实"，也很适合谈条件、谈利益、谈金钱（薪资、维权、债务、贷款、理财投资），并意味着我们会在意自己的外在，一些拖拉的健康问题终于会重视和处理。\n\n本周你会开始意识到——不再想敷衍自己，会很想认真照顾好自己的生活和精神世界。部分人会有网络桃花，或接触到风趣、有学识、责任感强的桃花机会，也或者是身边兼具这些品质的朋友会给你正面的鼓励和帮助。\n\n【本周健康注意】：咽喉、脖颈、消化系统有负担，头痛（或大脑转得很快、很疲惫的感觉），结节、感冒、抽筋。`;
+
+function getF(sign){
+  if(DB[sign]) return DB[sign];
+  return {
+    overall:{stars:3,text:'本周星象有起伏，稳字当头。不急不躁，保持内心平静，一切都会向好的方向走。'},
+    career: {stars:3,text:'效率尚可，注意人际摩擦，保持高情商应对，周中之后整体改善。'},
+    finance:{stars:3,text:'正财稳定，有小额意外收入的可能。避免冲动消费和大额投资。'},
+    love:   {stars:3,text:'感情需要耐心经营，直接沟通好过绕弯子，选好时机再开口。'},
+    study:  {stars:3,text:'专注度一般，给自己留出思考和消化的空间，不要过度施压。'},
+    avoid:['避免情绪化决策，不冲动、不赌气','控制消费欲望，大额支出谨慎','人际关系注意分寸，不要硬碰硬','健康注意：上火和睡眠质量'],
+    bad:`${sign}，这周的考验主要来自外部环境，不是你的问题。\n\n保持稳定的内核，慢下来看清楚局势。周中是个转折点，之后整体会逐渐改善——一切都会向着更好的方向前进的。\n\n请你别担心。`,
+    detail:{
+      career:'职场来看，这周星象带来一些考验，也有展现自己的机会。注意跟上级和同事的沟通方式，不要在情绪上来的时候做决定。周中之后整体有所改善，稳住就好。',
+      finance:'财运平稳，不适合大额投资或冲动消费。有些人会有小额意外之财，珍惜就好。\n\n如果有银行、报销、收款这类事务，这周可以着手处理，会比较顺。',
+      love:'感情上这周需要耐心。避免把细节想太多，钝感力是你本周的保护色。\n\n如果有想说的话，选择时机和方式比说什么更重要。等到周中之后再开口，效果会更好。\n\n爱情，是慢下来，才能看清楚。',
+      study:'给自己留出思考和消化的时间，不要过度施压。\n\n你已经比自己想象中准备得更好了。保持节奏，顺势而为，现在需要的是稳，不是冲。',
+    }
+  };
+}
+
+function st(n,m=5){return ('★'.repeat(n)+'☆'.repeat(m-n)).split('').join('')}
+function wait(ms){return new Promise(r=>setTimeout(r,ms))}
+
+// ─── PERIOD HELPERS ─────────────────────────────────────
+function getPeriodLabel(period=currentPeriod){
+  const labels={'this_week':'本周','next_week':'下周','this_month':'本月'};
+  return labels[period]||'本周';
+}
+
+function getPeriodRange(period=currentPeriod){
+  const now=new Date();
+  const fmt=d=>`${d.getMonth()+1}.${String(d.getDate()).padStart(2,'0')}`;
+  
+  if(period==='this_week'){
+    const dd=now.getDay()||7;
+    const mon=new Date(now);mon.setDate(now.getDate()-dd+1);
+    const sun=new Date(mon);sun.setDate(mon.getDate()+6);
+    return `${fmt(mon)}-${fmt(sun)}`;
+  } else if(period==='next_week'){
+    const dd=now.getDay()||7;
+    const mon=new Date(now);mon.setDate(now.getDate()-dd+8);
+    const sun=new Date(mon);sun.setDate(mon.getDate()+6);
+    return `${fmt(mon)}-${fmt(sun)}`;
+  } else if(period==='this_month'){
+    return `${now.getMonth()+1}月`;
+  }
+  return '';
+}
+
+// ─── STATE ───────────────────────────────────────────────
+const S={INIT:0,WZODIAC:1,WTIME:2,FORTUNE:3,CHAT:8};
+let state=S.INIT, sign=null, fortune=null, pcat=null;
+let sunConfirmed=null, risingChoice=null;
+let clickedQRSet=new Set();
+let currentPeriod='this_week';  // 'this_week' | 'next_week' | 'this_month'
+let periodPromptShown=false;     // 是否已经在当前流程末尾弹过时段引导
+
+// ─── 星象解读库（硬编码）───────────────────────────────────
+const ASTRO_INSIGHTS={
+  '太阳水星木星互动':{
+    title:'太阳、水星与木星的积极互动',
+    content:'这组星象代表着能量的激活和扩展。太阳带来自信和生命力，水星增强沟通和思维能力，木星则放大一切积极的可能性。综合来看，这周你会感受到明显的勇气提升、思路清晰、机会增多。无论是工作、财务还是人际关系，都容易看到积极的进展。这是一个"想到就能做到"的时刻，行动力会明显增强。'
+  },
+  '新月':{
+    title:'新月的能量',
+    content:'新月代表新的开始和落实。它象征着"从想法到行动"的转变。在新月期间，我们的意图会变得更加清晰，执行力也会增强。这周的新月特别有利于启动新项目、签署合约、做出重要决定。同时，新月也会激发我们对生活的重新审视——你可能会意识到哪些事情需要改变，哪些承诺需要兑现。'
+  },
+  '水星进入守护星座':{
+    title:'水星的守护星座转换',
+    content:'水星进入自己的守护星座，代表沟通、思维、表达能力达到最佳状态。这周你会发现自己的想法特别清晰，表达也特别有说服力。无论是谈判、汇报、还是日常沟通，都容易获得他人的理解和支持。这也是一个很好的时机来推进需要沟通和协商的事务。'
+  },
+  '木星启动':{
+    title:'木星的启动能量',
+    content:'木星是幸运之星，当它被激活时，代表着机会、扩展和成长。这周你可能会感受到一种"柳暗花明"的感觉——之前困扰你的问题可能会突然有了解决思路，之前看不到的机会现在变得清晰可见。木星的能量也会增强你的乐观心态和行动勇气，让你更敢于去尝试和争取。'
+  }
+};
+
+// ─── 问题分类器常量───────────────────────────────────
+const CATEGORY_KEYWORDS={
+  career:['事业','工作','职场','升职','跳槽','合作','项目','上级','同事','团队','应酬','加班','效率'],
+  finance:['财运','钱','投资','收入','赚钱','薪资','奖金','红包','补贴','福利','消费','支出','贷款','保险'],
+  love:['爱情','感情','桃花','恋爱','对象','单身','脱单','结婚','伴侣','暧昧','表白','约会'],
+  study:['学业','考试','学习','成绩','考研','培训','技能','出行','出差','旅行','证件','申请']
+};
+
+// ─── 问题分类函数───────────────────────────────────
+function classifyQuestion(question){
+  for(const[cat,keywords]of Object.entries(CATEGORY_KEYWORDS)){
+    if(keywords.some(kw=>question.includes(kw))){
+      return cat;
+    }
+  }
+  return'overall';
+}
+
+// ─── 回答生成函数───────────────────────────────────
+function generateExpandAnswer(question,category){
+  const f=fortune;
+  const periodLabel=getPeriodLabel(currentPeriod);
+  
+  // 随机选一个星象解读
+  const astroKeys=Object.keys(ASTRO_INSIGHTS);
+  const astroKey=astroKeys[Math.floor(Math.random()*astroKeys.length)];
+  const astro=ASTRO_INSIGHTS[astroKey];
+  
+  // 根据分类生成个人化建议背景
+  let personalAdvice='';
+  if(category==='career'){
+    personalAdvice=`${f.detail.career}`;
+  }else if(category==='finance'){
+    personalAdvice=`${f.detail.finance}`;
+  }else if(category==='love'){
+    personalAdvice=`${f.detail.love}`;
+  }else if(category==='study'){
+    personalAdvice=`${f.detail.study}`;
+  }else{
+    personalAdvice=`${f.weeklyDetail}`;
+  }
+
+  // 取出对应分类的具体行动建议（时机把握 + 机会窗口），组合成 1-6 条编号列表
+  const ea=EXPAND_ANSWERS[category]||EXPAND_ANSWERS.overall;
+  const allTips=[...ea.shortTerm, ...ea.opportunities];
+  const numberedAdvice=allTips.map((tip,i)=>`${i+1}. ${tip}`).join('\n');
+
+  // 进度条数据
+  const stars=f.overall.stars;
+  const percent=(stars/5)*100;
+  // 单行 HTML，避免被 \n→<br> 破坏
+  const scoreBarHtml=`<div class="score-bar score-bar--card"><div class="score-bar-meta"><span>${sign}座 · ${periodLabel} · 整体运势</span><span class="score-bar-num">${stars}.0 / 5</span></div><div class="score-bar-track"><div class="score-bar-fill" style="--score-w:${percent}%"></div></div></div>`;
+
+  // 卡片1：进度条（单独一张气泡，便于看清动态动画）
+  const barBubble=`【本周运势进度】
+${scoreBarHtml}`;
+
+  // 卡片2：剩余正文（已删除【你的问题】和【本周好运tips】）
+  const bodyBubble=`【本周星运分析】
+🌙 ${astro.title}
+${astro.content}
+
+【针对你的具体建议】
+👤 ${personalAdvice}
+
+⏰ 时机 & 机会逐条拆解：
+${numberedAdvice}`;
+
+  return {bar:barBubble, body:bodyBubble};
+}
+
+// 渲染"展开讲讲"完整回答：先弹出进度条卡片（看动画），再弹出正文卡片
+async function renderExpandAnswer(question,category){
+  const {bar,body}=generateExpandAnswer(question,category);
+  // 第一张卡片：进度条
+  addAI(`<div class="dbubble">${bar.replace(/\n/g,'<br>')}</div>`);
+  // 等待动画播完（CSS 动画 1.1s + 视觉缓冲）
+  await wait(1500);
+  // 显示打字动画，再弹出正文
+  showT();await wait(900);hideT();
+  addAI(`<div class="dbubble">${body.replace(/\n/g,'<br>').replace(/\<strong\>/g,'<strong style="color:#333;font-weight:600">').replace(/\<\/strong\>/g,'</strong>')}</div>`);
+
+  // 标记"展开讲讲"已被使用（从聊天框直接提问视为已使用展开讲讲）
+  clickedQRSet.add('expand');
+
+  // 生成剩余的 QR 按钮
+  let btns='';
+  for(const item of QR_ITEMS){
+    if(!clickedQRSet.has(item.id)){
+      btns += `<div class="qrbtn" onclick="window.qrAction('${item.id}')">${item.emoji} ${item.label}</div>`;
+    }
+  }
+
+  if(currentPeriod !== 'this_week'){
+    btns += `<div class="qrbtn" onclick="backToPeriodPrompt()" style="background:#F2F7F4;border-color:#BFD6CA">🔙 返回上级</div>`;
+  }
+  if(btns) addAI(`<div class="qrwrap">${btns}</div>`);
+
+  if(!periodPromptShown && clickedQRSet.size===QR_COUNT_FOR_PERIOD_PROMPT){
+    await showPeriodPrompt();
+  }
+}
+
+const QR_ITEMS=[
+  {id:'expand',  label:'展开讲讲',     emoji:'💬', rekan:false},
+  {id:'tips',    label:'好运tips',     emoji:'✨', rekan:false},
+  {id:'avoid',   label:'避雷指南',     emoji:'🚫', rekan:false},
+];
+// 计入时段切换判断的 QR 数量：所有子卡片都点击完之后再弹出"其他时段运势"引导
+const QR_COUNT_FOR_PERIOD_PROMPT=QR_ITEMS.length;
+
+// ─── 定制化问题回答库───────────────────────────────────
+const EXPAND_ANSWERS={
+  career:{
+    shortTerm:[
+      '周一/周二：主动向上级汇报工作进展，争取更多话语权',
+      '周三/周四：推进重要项目，这是执行力最强的时段',
+      '周五：总结本周成果，为下周做准备'
+    ],
+    opportunities:[
+      '升职机会：木星能量激活，有贵人相助',
+      '合作机会：水星进入新位置，沟通运势上升',
+      '薪资调整：太阳与木星互动，谈判时机最佳'
+    ],
+    avoid:[
+      '避免周一周二跟上级讨论加薪，容易被拒',
+      '不要冲动签新合同，先看完所有条款',
+      '警惕投资项目的高收益承诺'
+    ]
+  },
+  finance:{
+    shortTerm:[
+      '周二/周三：处理财务事务（报销、收款、银行业务）',
+      '周三到周五：可以做小额投资或理财规划',
+      '周末：总结本周收支，制定下周计划'
+    ],
+    opportunities:[
+      '偏财机会：有意外收入、奖金、红包的可能',
+      '投资机会：木星能量支持，可加仓小额',
+      '消费优化：审视消费习惯，优化支出'
+    ],
+    avoid:[
+      '避免周一周二做大额投资决定',
+      '不要被高收益承诺迷惑',
+      '警惕冲动消费'
+    ]
+  },
+  love:{
+    shortTerm:[
+      '周三到周五晚上8点后：最佳表白/沟通时机',
+      '周末：参加社交活动，增加桃花机会',
+      '全周：保持真诚和耐心'
+    ],
+    opportunities:[
+      '脱单机会：新月能量带来新的感情机遇',
+      '感情升温：木星祝福，有结婚/承诺的可能',
+      '新的邂逅：水星进入新位置，社交运上升'
+    ],
+    avoid:[
+      '避免周一周二讨论感情问题，容易引发矛盾',
+      '不要冲动表白，选择合适时机',
+      '警惕被感情冲昏头脑'
+    ]
+  },
+  study:{
+    shortTerm:[
+      '周二/周三：最佳学习和复习时段',
+      '周三到周五：参加考试或提交作业',
+      '周末：总结学习成果，制定下周计划'
+    ],
+    opportunities:[
+      '考试运：水星能量支持，思维清晰',
+      '学习效率：新月能量带来专注力提升',
+      '出行机会：有出差或旅行计划落实'
+    ],
+    avoid:[
+      '避免周一周二参加重要考试',
+      '不要熬夜复习，保证睡眠',
+      '警惕分心和拖延'
+    ]
+  },
+  overall:{
+    shortTerm:[
+      '周二/周三：整体运势最佳，适合推进重要事务',
+      '周三到周五：执行力强，是行动的黄金时段',
+      '周末：反思总结，为下周做准备'
+    ],
+    opportunities:[
+      '整体运势上升：太阳、水星、木星的积极互动',
+      '新的开始：新月能量带来新机遇',
+      '贵人相助：木星祝福，容易获得帮助'
+    ],
+    avoid:[
+      '避免周一周二做重大决定',
+      '不要冲动行动，先观察再决定',
+      '警惕过度乐观导致的风险'
+    ]
+  }
+};
+
+// ─── 周期进度条生成函数───────────────────────────────────
+function generateProgressBar(stars,maxStars=5){
+  const filled=Math.round((stars/maxStars)*10);
+  const empty=10-filled;
+  const bar='█'.repeat(filled)+'░'.repeat(empty);
+  const percentage=Math.round((stars/maxStars)*100);
+  
+  // 根据百分比判断阶段
+  let phase='';
+  if(percentage>=80)phase='上升期';
+  else if(percentage>=60)phase='稳定期';
+  else if(percentage>=40)phase='调整期';
+  else phase='低谷期';
+  
+  return `[${bar}] ${percentage}% - ${phase}`;
+}
+
+// ─── 可视化图表生成函数───────────────────────────────────
+function generateVisualization(category){
+  const f=fortune;
+  const progressBar=generateProgressBar(f.overall.stars);
+  
+  return `
+<div style="background:#EDF4EF;border-radius:8px;padding:12px;margin-bottom:12px;border-left:4px solid #BFD6CA">
+  <div style="font-weight:600;margin-bottom:8px">📈 本周运势进度</div>
+  <div style="font-size:13px;line-height:1.8;font-family:monospace">
+${progressBar}
+  </div>
+  <div style="font-size:12px;color:#999;margin-top:8px">
+你的问题聚焦于：<strong>${clabel(category)}</strong> 运势 ${st(f[category==='overall'?'overall':category].stars)}
+  </div>
+</div>
+  `;
+}
+
+// ─── INTENT ─────────────────────────────────────────────
+const imap={
+  career:['事业','工作','职场','升职','跳槽'],
+  finance:['财运','钱','投资','收入','赚钱'],
+  love:['爱情','感情','桃花','恋爱','对象','单身'],
+  study:['学业','考试','学习','成绩','考研'],
+};
+const gkw=['星运','运势','这周怎么样','最近怎样','今天运势','看运势','看星运'];
+function intent(t){
+  for(const[c,ks]of Object.entries(imap)){if(ks.some(k=>t.includes(k)))return{type:'sp',cat:c}}
+  if(gkw.some(k=>t.includes(k)))return{type:'gen'}
+  return{type:'?'}
+}
+
+// ─── UI ─────────────────────────────────────────────────
+const chatEl=document.getElementById('chat');
+function scroll(){chatEl.scrollTop=chatEl.scrollHeight}
+
+function addAI(html){
+  const r=document.createElement('div');
+  r.className='mrow';
+  r.innerHTML=`<div class="mcol">${html}</div>`;
+  chatEl.appendChild(r);scroll();return r;
+}
+function addMe(text){
+  const r=document.createElement('div');
+  r.className='mrow me';
+  r.innerHTML=`<div class="mcol"><div class="bme">${text}</div></div>`;
+  chatEl.appendChild(r);scroll();
+}
+
+let tEl=null;
+function showT(){
+  const r=document.createElement('div');
+  r.className='mrow';r.id='ti';
+  r.innerHTML=`<div class="typing"><div class="tdot"></div><div class="tdot"></div><div class="tdot"></div></div>`;
+  chatEl.appendChild(r);tEl=r;scroll();
+}
+function hideT(){if(tEl){tEl.remove();tEl=null}}
+
+function disC(cls){document.querySelectorAll('.'+cls).forEach(e=>{e.style.pointerEvents='none';e.style.opacity='.4'})}
+function disQR(){document.querySelectorAll('.qrbtn,.frow,.frow-merged').forEach(e=>e.style.pointerEvents='none')}
+function tempDisQR(ms){
+  const els=document.querySelectorAll('.qrbtn,.frow,.frow-merged');
+  els.forEach(e=>e.style.pointerEvents='none');
+  setTimeout(()=>els.forEach(e=>e.style.pointerEvents=''),ms);
+}
+function clabel(c){return{career:'事业运',finance:'财运',love:'爱情运',study:'学业运'}[c]||c}
+
+// ─── INFO CARD FLOWS (新增：占星基础信息卡流程) ──────────────────────────────────────────────
+
+// 显示占星基础信息卡
+async function showInfoCard(){
+  // 初始化 userInfo 中的太阳星座
+  userInfo.sunSign=getSunSignByBirthday(userInfo.birthday);
+
+  
+  addAI(`
+    <div class="infocard">
+      <div class="infocard-intro">根据你的小红书信息，推测你的基础占星信息如下 👇</div>
+      <div class="infocard-title">🌙 你的占星基础信息</div>
+      <div class="infocard-rows">
+        <div class="info-row">
+          <span class="info-label">🎂 生日</span>
+          <span class="info-value" onclick="window.editBirthday()">${userInfo.birthday}</span>
+          <span class="info-edit" onclick="window.editBirthday()">›</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">☀️ 太阳星座</span>
+          <span class="info-value">${EMOJI[userInfo.sunSign]} ${userInfo.sunSign}座</span>
+          <span class="info-edit" onclick="window.editSunSign()">›</span>
+        </div>
+        
+        
+      </div>
+      <button class="persona-btn" onclick="window.confirmInfoCard()">✓ 信息无误，开始解读</button>
+    </div>
+  `);
+}
+
+// 编辑生日 - 改为调用新的滚轮选择器
+window.editBirthday=async function(){
+  openBirthdayPicker();
+};
+
+// 临时变量用于日期选择（保留以兼容旧逻辑）
+let tempBirthday={year:null,month:null,day:null};
+
+// 旧的 confirmBirthdayEdit 保留（用于兼容其他可能的调用）
+window.confirmBirthdayEdit=async function(){
+  const y=tempBirthday.year||parseInt(userInfo.birthday.substring(0,4));
+  const m=tempBirthday.month||parseInt(userInfo.birthday.substring(5,7));
+  const d=tempBirthday.day||parseInt(userInfo.birthday.substring(8,10));
+
+  userInfo.birthday=`${y}-${String(m).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+  tempBirthday={year:null,month:null,day:null};
+
+  // 重新计算太阳星座
+  userInfo.sunSign=getSunSignByBirthday(userInfo.birthday);
+
+  // 清空聊天记录中的日期选择器
+  document.querySelectorAll('.date-picker').forEach(e=>e.remove());
+
+  // 原地更新最后一张 infocard，而不是新增
+  const cards=document.querySelectorAll('.infocard');
+  if(cards.length>0){
+    const card=cards[cards.length-1];
+    const infoRows=card.querySelectorAll('.info-row');
+    if(infoRows.length>=2){
+      // 更新生日那行（第一行）
+      const birthdayValueSpan=infoRows[0].querySelector('.info-value');
+      if(birthdayValueSpan) birthdayValueSpan.textContent=userInfo.birthday;
+
+      // 更新太阳星座那行（第二行）
+      const sunSignValueSpan=infoRows[1].querySelector('.info-value');
+      if(sunSignValueSpan) sunSignValueSpan.innerHTML=`${EMOJI[userInfo.sunSign]} ${userInfo.sunSign}座`;
+    }
+  }
+};
+
+window.cancelBirthdayEdit=function(){
+  tempBirthday={year:null,month:null,day:null};
+  document.querySelectorAll('.date-picker').forEach(e=>e.remove());
+};
+
+// ─── 新的 iOS 风格滚轮选择器 ───────────────────────────────────
+let bpCurrentYear=null, bpCurrentMonth=null, bpCurrentDay=null;
+
+function daysInMonth(y,m){
+  return new Date(y,m,0).getDate();
+}
+
+function buildBirthdayPicker(){
+  const cur=userInfo.birthday.split('-').map(Number);
+  const [yy,mm,dd]=cur;
+  const now=new Date();
+  const yMax=now.getFullYear();
+  const yMin=1950;
+  
+  // 初始化当前选中值
+  bpCurrentYear=yy;
+  bpCurrentMonth=mm;
+  bpCurrentDay=dd;
+  
+  // 构建年份列表
+  const yearList=document.getElementById('bp-year-list');
+  yearList.innerHTML='';
+  for(let y=yMin;y<=yMax;y++){
+    const li=document.createElement('li');
+    li.textContent=y;
+    yearList.appendChild(li);
+  }
+  
+  // 构建月份列表
+  const monthList=document.getElementById('bp-month-list');
+  monthList.innerHTML='';
+  for(let m=1;m<=12;m++){
+    const li=document.createElement('li');
+    li.textContent=String(m).padStart(2,'0');
+    monthList.appendChild(li);
+  }
+  
+  // 构建日期列表
+  rebuildDayList(yy,mm,dd);
+  
+  // 绑定滚动监听
+  bindScrollListeners();
+  
+  // 滚动到当前选中项并更新 active 状态
+  scrollToActive();
+  updateAllActive();
+}
+
+function updateAllActive(){
+  const cols=document.querySelectorAll('.bp-col');
+  cols.forEach(col=>{
+    updateActiveItem(col);
+  });
+}
+
+function rebuildDayList(y,m,currentDay){
+  const maxDay=daysInMonth(y,m);
+  const dayList=document.getElementById('bp-day-list');
+  dayList.innerHTML='';
+  const adjustedDay=Math.min(currentDay,maxDay);
+  for(let d=1;d<=maxDay;d++){
+    const li=document.createElement('li');
+    li.textContent=String(d).padStart(2,'0');
+    dayList.appendChild(li);
+  }
+  bpCurrentDay=adjustedDay;
+  // 重新生成后，滚动到新的选中项
+  setTimeout(()=>{
+    const dayCol=document.querySelector('.bp-col[data-col="day"]');
+    if(dayCol) scrollToActiveDay(dayCol);
+  },0);
+}
+
+function scrollToActiveDay(col){
+  const ul=col.querySelector('ul');
+  const items=ul.querySelectorAll('li');
+  const itemHeight=44;
+  const targetIndex=bpCurrentDay-1;
+  if(items[targetIndex]){
+    const scrollTop=targetIndex*itemHeight;
+    col.scrollTop=scrollTop;
+    updateActiveItem(col);
+  }
+}
+
+function bindScrollListeners(){
+  const cols=document.querySelectorAll('.bp-col');
+  cols.forEach(col=>{
+    col.addEventListener('scroll',()=>{
+      updateActiveItem(col);
+    },false);
+  });
+}
+
+function updateActiveItem(col){
+  const ul=col.querySelector('ul');
+  const items=ul.querySelectorAll('li');
+  const colType=col.dataset.col;
+
+  const scrollTop=col.scrollTop;
+  const itemHeight=44;
+  // 中心位置是 88px（上方 2 项 * 44px），计算中心项的索引
+  const centerIndex=Math.round(scrollTop/itemHeight);
+
+  items.forEach((item,idx)=>{
+    item.classList.remove('active');
+  });
+
+  if(items[centerIndex]){
+    items[centerIndex].classList.add('active');
+
+    // 更新当前选中值
+    const value=parseInt(items[centerIndex].textContent);
+    if(colType==='year') bpCurrentYear=value;
+    else if(colType==='month'){
+      bpCurrentMonth=value;
+      // 月份变化时，重新生成日期列表
+      rebuildDayList(bpCurrentYear,value,bpCurrentDay);
+      scrollToActive();
+    }
+    else if(colType==='day') bpCurrentDay=value;
+  }
+}
+
+function scrollToActive(){
+  const cols=document.querySelectorAll('.bp-col');
+  cols.forEach(col=>{
+    const colType=col.dataset.col;
+    const ul=col.querySelector('ul');
+    const items=ul.querySelectorAll('li');
+    const itemHeight=44;
+    let targetIndex=0;
+    
+    if(colType==='year') targetIndex=bpCurrentYear-1950;
+    else if(colType==='month') targetIndex=bpCurrentMonth-1;
+    else if(colType==='day') targetIndex=bpCurrentDay-1;
+    
+    if(items[targetIndex]){
+      const scrollTop=targetIndex*itemHeight;
+      col.scrollTop=scrollTop;
+    }
+  });
+}
+
+window.openBirthdayPicker=function(){
+  buildBirthdayPicker();
+  document.getElementById('birthdayPicker').style.display='flex';
+};
+
+function closeBirthdayPicker(){
+  document.getElementById('birthdayPicker').style.display='none';
+}
+
+function confirmBirthdayPick(){
+  const y=bpCurrentYear;
+  const m=String(bpCurrentMonth).padStart(2,'0');
+  const d=String(bpCurrentDay).padStart(2,'0');
+  const newBirthday=`${y}-${m}-${d}`;
+  
+  confirmBirthdayEdit_New(newBirthday);
+  closeBirthdayPicker();
+}
+
+// 新的 confirmBirthdayEdit 逻辑（用于滚轮选择器）
+async function confirmBirthdayEdit_New(newBirthday){
+  userInfo.birthday=newBirthday;
+  
+  // 重新计算太阳星座
+  userInfo.sunSign=getSunSignByBirthday(userInfo.birthday);
+  
+  // 原地更新最后一张 infocard
+  const cards=document.querySelectorAll('.infocard');
+  if(cards.length>0){
+    const card=cards[cards.length-1];
+    const infoRows=card.querySelectorAll('.info-row');
+    if(infoRows.length>=2){
+      // 更新生日那行（第一行）
+      const birthdayValueSpan=infoRows[0].querySelector('.info-value');
+      if(birthdayValueSpan) birthdayValueSpan.textContent=userInfo.birthday;
+      
+      // 更新太阳星座那行（第二行）
+      const sunSignValueSpan=infoRows[1].querySelector('.info-value');
+      if(sunSignValueSpan) sunSignValueSpan.innerHTML=`${EMOJI[userInfo.sunSign]} ${userInfo.sunSign}座`;
+    }
+  }
+}
+
+// 编辑太阳星座
+window.editSunSign=async function(){
+  addAI(`
+    <div class="selcard">
+      <div class="sellabel">选择你的太阳星座</div>
+      <div class="zchips">${SIGNS.map(s=>`<div class="zchip ${userInfo.sunSign===s?'picked':''}" onclick="window.selectSunSign('${s}')">${EMOJI[s]} ${s}座</div>`).join('')}</div>
+      <div style="display:flex;gap:8px;margin-top:12px">
+        <button class="persona-btn" style="flex:1" onclick="window.confirmSunSignEdit()">✓ 确定</button>
+        <button class="persona-btn" style="flex:1;background:#E5E5E5;color:#666" onclick="window.cancelSunSignEdit()">✕ 取消</button>
+      </div>
+    </div>
+  `);
+};
+
+let tempSunSign=null;
+
+window.selectSunSign=function(s){
+  tempSunSign=s;
+  document.querySelectorAll('.zchip').forEach(c=>c.classList.remove('picked'));
+  event.target.classList.add('picked');
+};
+
+window.confirmSunSignEdit=async function(){
+  if(tempSunSign){
+    userInfo.sunSign=tempSunSign;
+    tempSunSign=null;
+    document.querySelectorAll('.selcard').forEach(e=>e.remove());
+    
+    // 原地更新最后一张 infocard 的太阳星座，而不是新增
+    const cards=document.querySelectorAll('.infocard');
+    if(cards.length>0){
+      const card=cards[cards.length-1];
+      const infoRows=card.querySelectorAll('.info-row');
+      if(infoRows.length>=2){
+        // 更新太阳星座那行（第二行）
+        const sunSignValueSpan=infoRows[1].querySelector('.info-value');
+        if(sunSignValueSpan) sunSignValueSpan.innerHTML=`${EMOJI[userInfo.sunSign]} ${userInfo.sunSign}座`;
+      }
+    }
+  }
+};
+
+window.cancelSunSignEdit=function(){
+  tempSunSign=null;
+  document.querySelectorAll('.selcard').forEach(e=>e.remove());
+};
+
+// 编辑出生时间
+
+// 确认信息卡
+window.confirmInfoCard=async function(){
+  sign=userInfo.sunSign;
+  fortune=getF(sign);
+
+  addMe('✓ 信息无误');
+  showT();await wait(700);hideT();
+  showT();await wait(1300);hideT();
+  await showCard('本周');
+  state=S.FORTUNE;
+};
+
+// ─── FLOWS ──────────────────────────────────────────────
+async function boot(){
+  await wait(500);
+  addMe('我要看运势');
+  showT();await wait(900);hideT();
+  addAI(`<div class="bai" style="line-height:1.65">提前了解运势，多一份参考，心里有底气。我帮你接入 <span style="color:#3D6B5C;font-weight:600">Alex大叔</span> 的星座运势经验包，让他来帮你做运势解读</div>`);
+  await wait(400);
+  await showPersona({type:'gen'});
+}
+
+async function showPersona(it){
+  showT();await wait(900);hideT();
+  addAI(`
+    <div class="persona">
+      <div class="persona-head">
+        <div class="persona-bigavt"><img src="alex-avatar.png" alt="Alex"/></div>
+        <div class="persona-name">Alex大叔</div>
+      </div>
+      <div class="persona-desc">深耕西方占星12年，专注太阳星座周运、月运解读</div>
+      <div class="persona-subcard">
+        <div style="flex:1;min-width:0">
+          <div class="persona-subcard-title">星座运势解读</div>
+          <div class="persona-subcard-desc">你告诉我你的星座和困惑，我帮你做一份完整的运势解读</div>
+        </div>
+        <div class="persona-subcard-deco">
+          <div class="deco-inner">
+            <div class="deco-line deco-line--title"></div>
+            <div class="deco-line"></div>
+            <div class="deco-line deco-line--short"></div>
+            <div class="deco-line"></div>
+            <div class="deco-line deco-line--short"></div>
+          </div>
+        </div>
+      </div>
+      <button class="persona-btn" onclick="onBtn('${it.type}','${it.cat||''}')">✦ 开始解读</button>
+    </div>
+  `);
+}
+
+window.onBtn=async function(t,c){
+  document.querySelectorAll('.persona-btn').forEach(b=>b.disabled=true);
+  pcat=c||null;
+  sunConfirmed=null;
+  risingChoice=null;
+  showT();await wait(900);hideT();
+
+  // 直接显示占星基础信息卡（推测提示文案已合并到卡片内）
+  await showInfoCard();
+  state=S.WZODIAC;
+};
+
+window.confirmSign=async function(correct){
+  document.querySelectorAll('.tchip').forEach(e=>{e.style.pointerEvents='none';e.style.opacity='.4'});
+  if(correct){
+    sign=PRESET_SIGN;
+    sunConfirmed=true;
+    addMe(`${EMOJI[sign]} ${sign}座`);
+    await wait(600);
+    showT();await wait(800);hideT();
+    addAI(`<div class="bai">上升星座代表你在他人眼中的形象和气质，是占星运势中很重要的组成部分，你想看上升星座的运势吗？</div>`);
+    await wait(300);
+    addAI(`
+      <div class="selcard">
+        <div class="sellabel">选择你的选项</div>
+        <div class="tchips">
+          <div class="tchip" onclick="askRising('know')">我知道出生时间</div>
+          <div class="tchip" onclick="askRising('guess')">我不确定出生时间</div>
+          <div class="tchip" onclick="askRising('skip')">不用了</div>
+        </div>
+      </div>
+    `);
+  } else {
+    addMe('不对，我要修改');
+    showT();await wait(700);hideT();
+    addAI(`<div class="bai">好的！先告诉我你是什么星座？</div>`);
+    await wait(300);
+    addAI(`
+      <div class="selcard">
+        <div class="sellabel">点击选择你的太阳星座</div>
+        <div class="zchips">${SIGNS.map(s=>`<div class="zchip" onclick="pickZ('${s}')">${EMOJI[s]} ${s}座</div>`).join('')}</div>
+      </div>
+    `);
+    state=S.WZODIAC;
+  }
+};
+
+window.pickZ=async function(s){
+  disC('zchip');sign=s;
+  sunConfirmed=true;
+  addMe(`${EMOJI[s]} ${s}座`);
+  showT();await wait(700);hideT();
+  addAI(`<div class="bai">${s}座，收到！</div>`);
+  await wait(600);
+  showT();await wait(800);hideT();
+  addAI(`<div class="bai">上升星座代表你在他人眼中的形象和气质，是占星运势中很重要的组成部分，你想看上升星座的运势吗？</div>`);
+  await wait(300);
+  addAI(`
+    <div class="selcard">
+      <div class="sellabel">选择你的选项</div>
+      <div class="tchips">
+        <div class="tchip" onclick="askRising('know')">我知道出生时间</div>
+        <div class="tchip" onclick="askRising('guess')">我不确定出生时间</div>
+        <div class="tchip" onclick="askRising('skip')">不用了</div>
+      </div>
+    </div>
+  `);
+};
+
+window.pickT=async function(p){
+  disC('tchip');addMe(p);
+  fortune=getF(sign);
+  showT();await wait(1300);hideT();
+  if(pcat){await showDetail(pcat,true)}else{await showCard(p)}
+  state=S.FORTUNE;
+};
+
+async function showCard(p){
+  const f=fortune;
+  const periodLabel=getPeriodLabel(currentPeriod);
+  const rng=getPeriodRange(currentPeriod);
+
+  addAI(`
+    <div class="fcard">
+      <div class="fhead">
+        <div class="fhead-top">
+          <div><div class="fsign">${EMOJI[sign]} ${sign}座 · ${periodLabel}运势</div><div class="fperiod">${rng} · Alex大叔解读</div></div>
+          <div class="fscore">${st(f.overall.stars)}</div>
+        </div>
+        <div class="fsep"></div>
+        <div class="fsummary">${f.overall.text}</div>
+      </div>
+      <div class="frows">
+        ${fr('💼','EEF4FF','事业','career',f.career)}
+        ${fr('💰','FFF9EC','财运','finance',f.finance)}
+        ${fr('💕','FFF3F5','爱情','love',f.love)}
+        ${fr('📚','F3FFF5','学业','study',f.study)}
+      </div>
+    </div>
+  `);
+  await wait(400);
+  clickedQRSet=new Set();
+  await showInitialQR();
+}
+
+async function showInitialQR(){
+  const qrHtml=QR_ITEMS.map(item=>`<div class="qrbtn" onclick="window.qrAction('${item.id}')">${item.emoji} ${item.label}</div>`).join('');
+  addAI(`<div class="qrwrap">${qrHtml}</div>`);
+}
+
+function fr(icon,bg,label,cat,data){
+  return`<div class="frow" onclick="rowC('${cat}')"><div class="frow-left"><div class="ficon" style="background:#${bg}">${icon}</div><div class="flabel">${label}</div><div class="farrow">›</div></div><div class="fstars">${st(data.stars)}</div><div class="fdesc">${data.text}</div></div>`;
+}
+
+window.rowC=async function(c){tempDisQR(2000);clickedQRSet.add(c);await showDetail(c,false)};
+
+async function showDetail(c,first){
+  if(!first)addMe(clabel(c)+'详情');
+  showT();await wait(1100);hideT();
+
+  // 显示详情卡片
+  const f=fortune;
+  const detailText=f.detail[c]||'';
+  addAI(`<div class="dbubble">${detailText}</div>`);
+
+  // 生成剩余的 QR 按钮（排除已点击的）
+  let btns='';
+  for(const item of QR_ITEMS){
+    if(!clickedQRSet.has(item.id)){
+      btns += `<div class="qrbtn" onclick="window.qrAction('${item.id}')">${item.emoji} ${item.label}</div>`;
+    }
+  }
+
+  // 如果当前不是本周（说明用户切换过时段），追加"返回上级"按钮
+  if(currentPeriod !== 'this_week'){
+    btns += `<div class="qrbtn" onclick="backToPeriodPrompt()" style="background:#F2F7F4;border-color:#BFD6CA">🔙 返回上级</div>`;
+  }
+  if(btns) addAI(`<div class="qrwrap">${btns}</div>`);
+
+  // 时段切换引导：看完所有 QR 后弹出（不包括"展开讲讲"）
+  if(!periodPromptShown && clickedQRSet.size===QR_COUNT_FOR_PERIOD_PROMPT){
+    await showPeriodPrompt();
+  }
+}
+
+async function showPeriodPrompt(){
+  periodPromptShown=true;
+  await wait(600);
+  addAI(`<div class="bai">要不要看看其他时段的运势？</div>`);
+  await wait(300);
+  addAI(`
+    <div class="qrwrap" style="margin-top:8px">
+      <div class="qrbtn" onclick="switchPeriod('next_week')">📅 下周运势</div>
+      <div class="qrbtn" onclick="switchPeriod('this_month')">📆 本月运势</div>
+    </div>
+  `);
+}
+
+async function showOverall(){
+  addMe('运势整体详情');
+  showT();await wait(1100);hideT();
+  const f=fortune;
+  addAI(`<div class="dbubble">${f.weeklyDetail}</div>`);
+  
+  // 生成剩余的 QR 按钮
+  let btns='';
+  for(const item of QR_ITEMS){
+    if(!clickedQRSet.has(item.id)){
+      btns += `<div class="qrbtn" onclick="window.qrAction('${item.id}')">${item.emoji} ${item.label}</div>`;
+    }
+  }
+  
+  if(currentPeriod !== 'this_week'){
+    btns += `<div class="qrbtn" onclick="backToPeriodPrompt()" style="background:#F2F7F4;border-color:#BFD6CA">🔙 返回上级</div>`;
+  }
+  if(btns) addAI(`<div class="qrwrap">${btns}</div>`);
+  
+  if(!periodPromptShown && clickedQRSet.size===QR_COUNT_FOR_PERIOD_PROMPT){
+    await showPeriodPrompt();
+  }
+}
+
+async function showAvoid(){
+  addMe('避雷指南');
+  showT();await wait(1100);hideT();
+  const f=fortune;
+  let avoidHtml='<strong>⚠️ 本周避雷指南</strong>\n';
+  f.avoid.forEach(item=>avoidHtml+=`• ${item}\n`);
+  addAI(`<div class="avoidcard">${avoidHtml}</div>`);
+  
+  // 生成剩余的 QR 按钮
+  let btns='';
+  for(const item of QR_ITEMS){
+    if(!clickedQRSet.has(item.id)){
+      btns += `<div class="qrbtn" onclick="window.qrAction('${item.id}')">${item.emoji} ${item.label}</div>`;
+    }
+  }
+  
+  if(currentPeriod !== 'this_week'){
+    btns += `<div class="qrbtn" onclick="backToPeriodPrompt()" style="background:#F2F7F4;border-color:#BFD6CA">🔙 返回上级</div>`;
+  }
+  if(btns) addAI(`<div class="qrwrap">${btns}</div>`);
+  
+  if(!periodPromptShown && clickedQRSet.size===QR_COUNT_FOR_PERIOD_PROMPT){
+    await showPeriodPrompt();
+  }
+}
+
+async function showLuckyTips(){
+  addMe('✨ 好运tips');
+  showT();await wait(1100);hideT();
+  const f=fortune;
+
+  // 只保留「本周抓住好运的具体行动」部分
+  const tipsContent=`【本周抓住好运的具体行动】
+${f.avoidTip}`;
+
+  // 渲染到 dbubble，处理换行和 HTML 标签
+  addAI(`<div class="dbubble">${tipsContent.replace(/\n/g,'<br>').replace(/\<strong\>/g,'<strong style="color:#333;font-weight:600">').replace(/\<\/strong\>/g,'</strong>')}</div>`);
+
+  // 生成剩余的 QR 按钮
+  let btns='';
+  for(const item of QR_ITEMS){
+    if(!clickedQRSet.has(item.id)){
+      btns += `<div class="qrbtn" onclick="window.qrAction('${item.id}')">${item.emoji} ${item.label}</div>`;
+    }
+  }
+
+  if(currentPeriod !== 'this_week'){
+    btns += `<div class="qrbtn" onclick="backToPeriodPrompt()" style="background:#F2F7F4;border-color:#BFD6CA">🔙 返回上级</div>`;
+  }
+  if(btns) addAI(`<div class="qrwrap">${btns}</div>`);
+
+  if(!periodPromptShown && clickedQRSet.size===QR_COUNT_FOR_PERIOD_PROMPT){
+    await showPeriodPrompt();
+  }
+}
+
+async function showBad(title='霉运提示'){
+  addMe(title);
+  showT();await wait(1100);hideT();
+  const f=fortune;
+  addAI(`<div class="comfortcard"><strong>${title}</strong>\n${f.bad}</div>`);
+  
+  // 生成剩余的 QR 按钮
+  let btns='';
+  for(const item of QR_ITEMS){
+    if(!clickedQRSet.has(item.id)){
+      btns += `<div class="qrbtn" onclick="window.qrAction('${item.id}')">${item.emoji} ${item.label}</div>`;
+    }
+  }
+  
+  if(currentPeriod !== 'this_week'){
+    btns += `<div class="qrbtn" onclick="backToPeriodPrompt()" style="background:#F2F7F4;border-color:#BFD6CA">🔙 返回上级</div>`;
+  }
+  if(btns) addAI(`<div class="qrwrap">${btns}</div>`);
+  
+  if(!periodPromptShown && clickedQRSet.size===QR_COUNT_FOR_PERIOD_PROMPT){
+    await showPeriodPrompt();
+  }
+}
+
+window.qrAction=async function(id){
+  tempDisQR(2000);
+  // 展开讲讲不计入 clickedQRSet
+  if(id!=='expand'){
+    clickedQRSet.add(id);
+  }
+  if(id==='overall')await showOverall();
+  else if(id==='expand'){
+    showT();await wait(700);hideT();
+    addAI(`<div class="bai">想深入了解什么呢？直接在下方输入框告诉我，比如「我的事业运怎样才能更好」「财运有什么需要注意的」～</div>`);
+    clickedQRSet.add(id);
+    return;
+  }
+  else if(id==='career')await showDetail('career',false);
+  else if(id==='finance')await showDetail('finance',false);
+  else if(id==='love')await showDetail('love',false);
+  else if(id==='study')await showDetail('study',false);
+  else if(id==='tips')await showLuckyTips();
+  else if(id==='avoid')await showAvoid();
+};
+
+// ─── RISING SIGN FLOWS ──────────────────────────────────
+
+// ─── SWITCH SEPARATE SIGN ───────────────────────────────
+
+window.switchPeriod=async function(period){
+  // 用户点击下周/本月/本周后的处理
+  currentPeriod=period;
+  // 添加用户消息
+  let periodLabel;
+  if(period==='this_week') periodLabel='📍 本周运势';
+  else if(period==='next_week') periodLabel='📅 下周运势';
+  else if(period==='this_month') periodLabel='📆 本月运势';
+  addMe(periodLabel);
+  // 重置状态，准备走新一轮流程
+  clickedQRSet=new Set();
+  periodPromptShown=false;
+  // 等待+typing
+  showT();await wait(700);hideT();
+  // 直接显示运势卡
+  await showCard(period);
+  };
+
+window.backToPeriodPrompt=async function(){
+  // 添加用户消息
+  addMe('🔙 返回上级');
+  // 等待+typing
+  showT();await wait(700);hideT();
+  // 提示文案
+  addAI(`<div class="bai">要不要看看其他时段的运势？</div>`);
+  await wait(300);
+  // 重新显示时段切换按钮（包含本周，让用户可以回到本周）
+  addAI(`
+    <div class="qrwrap" style="margin-top:8px">
+      <div class="qrbtn" onclick="switchPeriod('this_week')">📍 本周运势</div>
+      <div class="qrbtn" onclick="switchPeriod('next_week')">📅 下周运势</div>
+      <div class="qrbtn" onclick="switchPeriod('this_month')">📆 本月运势</div>
+    </div>
+  `);
+  state=S.CHAT;
+};
+
+// ─── INPUT HANDLER ───────────────────────────────────────
+async function go(text){
+  if(!text.trim())return;
+  document.getElementById('ibox').value='';
+  addMe(text);
+  const it=intent(text);
+
+
+  if(state===S.INIT||state===S.CHAT){
+    if(it.type!=='?'){state=S.INIT;pcat=it.cat||null;await showPersona(it)}
+    else{
+      const m=SIGNS.find(s=>text.includes(s));
+      if(m&&state===S.WZODIAC){await pickZ(m);return}
+      showT();await wait(700);hideT();
+      addAI(`<div class="bai">你可以告诉我想看什么运势？比如「看看这周星运」或者「我想了解事业运」～</div>`);
+    }
+  }else if(state===S.WZODIAC){
+    const m=SIGNS.find(s=>text.includes(s));
+    if(m)await pickZ(m);
+    else{showT();await wait(500);hideT();addAI(`<div class="bai">请点击上方选择你的星座，或者直接说「我是天蝎座」这样～</div>`)}
+  }else if(state===S.FORTUNE||state===S.CHAT){
+    // 聊天框输入的所有问题都走"展开讲讲"的回答逻辑，
+    // 与点击「展开讲讲」按钮后输入问题的回答保持完全一致
+    const category=classifyQuestion(text);
+    showT();await wait(1200);hideT();
+    await renderExpandAnswer(text,category);
+  }
+}
+
+document.getElementById('isend').addEventListener('click',()=>go(document.getElementById('ibox').value.trim()));
+document.getElementById('ibox').addEventListener('keypress',e=>{if(e.key==='Enter')go(e.target.value.trim())});
+window.go=go;
+boot();
+</script>
+
+<!-- 生日选择器 modal -->
+<div id="birthdayPicker" class="bp-mask" style="display:none">
+  <div class="bp-panel">
+    <div class="bp-header">
+      <span class="bp-cancel" onclick="closeBirthdayPicker()">取消</span>
+      <span class="bp-title">选择生日</span>
+      <span class="bp-confirm" onclick="confirmBirthdayPick()">确认</span>
+    </div>
+    <div class="bp-body">
+      <div class="bp-col" data-col="year"><ul id="bp-year-list"></ul></div>
+      <div class="bp-col" data-col="month"><ul id="bp-month-list"></ul></div>
+      <div class="bp-col" data-col="day"><ul id="bp-day-list"></ul></div>
+      <div class="bp-highlight"></div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
